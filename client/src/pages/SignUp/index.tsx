@@ -18,15 +18,15 @@ const SignUp = () => {
   const emailCheck = useCallback(email => {    
     const regex = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
     return (email !== '' && email !== 'undefined' && regex.test(email)); 
-  }, [email])
+  }, [])
 
   const onChangeEmail = useCallback((e) => {
     setEmail(e.target.value);
-  }, [email])
+  }, [])
 
   const onChangeName = useCallback((e) => {
     setName(e.target.value);
-  }, [name])
+  }, [])
 
   const onChangePassword = useCallback((e) => {
     setPassword(e.target.value);
@@ -58,7 +58,7 @@ const SignUp = () => {
           console.log(err);
       })
     }
-  }, [email, name, password])
+  }, [email, emailCheck, mismatchError, name, password])
   
   return (
     <Container> 
