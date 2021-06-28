@@ -21,7 +21,7 @@ const LogIn = () => {
   const [loginError, setLoginError] = useState('')
   const [rememberMe, setRememberMe] = useState(rememberMeChecked)
 
-  const openNotification = (err: any) => {
+  const openNotification = (err: string) => {
     notification.open({
       message: 'Login Error',
       description:
@@ -36,8 +36,8 @@ const LogIn = () => {
 
   const emailCheck = useCallback(email => {
     const regex = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-    return (email != '' && email != 'undefined' && regex.test(email));
-  }, [email])
+    return (email !== '' && email !== 'undefined' && regex.test(email));
+  }, [])
 
   const handleRememberMe = useCallback(e => {
     setRememberMe(!rememberMe)
@@ -45,11 +45,11 @@ const LogIn = () => {
 
   const onChangeEmail = useCallback((e) => {
     setEmail(e.target.value);
-  }, [email])
+  }, [])
 
   const onChangePassword = useCallback((e) => {
     setPassword(e.target.value);
-  }, [password])
+  }, [])
 
   const onSubmit = useCallback((e) => {
     e.preventDefault();
@@ -70,7 +70,7 @@ const LogIn = () => {
         openNotification(err);
       })      
     }
-  }, [email, password])
+  }, [email, emailCheck, password])
 
   return (
     <Container>
