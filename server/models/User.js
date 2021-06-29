@@ -30,14 +30,14 @@ const userSchema = mongoose.Schema({
 })
 
 
-userSchema.pre('save', (next) => {
-    var user = this;
+userSchema.pre('save', function(next) {
+    let user = this;
     if (user.isModified('password')) {
-        //비밀번호를 암호화 시킨다.
-        bcrypt.genSalt(saltRounds, function (err, salt) {
+        
+        bcrypt.genSalt(saltRounds, (err, salt) => {
             if (err) return next(err)
 
-            bcrypt.hash(user.password, salt, function (err, hash) {
+            bcrypt.hash(user.password, salt, (err, hash) => {
                 if (err) return next(err)
                 user.password = hash
                 next()
@@ -48,8 +48,7 @@ userSchema.pre('save', (next) => {
     }
 })
 
-
-userSchema.methods.comparePassword = (plainPassword, cb) => {
+userSchema.methods.comparePassword = function(plainPassword, cb) {
 
     //plainPassword 1234567    암호회된 비밀번호 $2b$10$l492vQ0M4s9YUBfwYkkaZOgWHExahjWC
     bcrypt.compare(plainPassword, this.password, function (err, isMatch) {
@@ -58,7 +57,7 @@ userSchema.methods.comparePassword = (plainPassword, cb) => {
     })
 }
 
-userSchema.methods.generateToken = (cb) => {
+userSchema.methods.generateToken = function(cb) {
     const user = this;
     // console.log('user._id', user._id)
 
@@ -75,7 +74,7 @@ userSchema.methods.generateToken = (cb) => {
     })
 }
 
-userSchema.statics.findByToken = (token, cb) => {
+userSchema.statics.findByToken = function(token, cb){
     var user = this;
     // user._id + ''  = token
     //토큰을 decode 한다. 
