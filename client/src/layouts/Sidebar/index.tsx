@@ -1,9 +1,20 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { Li, Nav, Ul } from "./styles";
 import { HomeFilled, CalendarOutlined, PlusOutlined } from "@ant-design/icons";
+import useSWR from "swr";
+import fetcher from "../../utils/fetcher";
 
 const Sidebar = () => {
+  const { data, error, revalidate, mutate } = useSWR(
+    "/api/users/auth",
+    fetcher
+  );
+  
+  if (!data) {
+    return <Redirect to="/login" />;
+  }
+
   return (
     <Nav>
       <Ul>
