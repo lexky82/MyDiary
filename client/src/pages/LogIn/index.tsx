@@ -1,15 +1,18 @@
 import React, { useState, useCallback } from "react";
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 /* Lib */
 import axios from 'axios'
+import useSWR from "swr";
+import fetcher from "../../utils/fetcher";
 
 /* Components */
 import { LockOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
 import { Form, Input, Button, Checkbox, notification } from 'antd';
 import { Header, Container } from "../SignUp/styles";
 
-const LogIn = () => {
+const LogIn = (props: any) => {
+  const { data, error, revalidate, mutate} = useSWR('/api/users/auth', fetcher);
 
   const rememberMeChecked = localStorage.getItem("rememberMe") ? true : false;
   const initialEmail: any = localStorage.getItem("rememberMe")
@@ -21,17 +24,26 @@ const LogIn = () => {
   const [loginError, setLoginError] = useState('')
   const [rememberMe, setRememberMe] = useState(rememberMeChecked)
 
-  const openNotification = (err: string) => {
-    notification.open({
-      message: 'Login Error',
-      description:
-        err
-          ? err
-          : '이메일 또는 비밀번호를 확인하시길 바랍니다.',
-
-      icon: <UserOutlined style={{ color: 'red' }} />,
-      placement: 'topLeft'
-    });
+  const openNotification = (messege: string, code: boolean) => {
+    if(code === true){ // 로그인 성공
+      notification.open({
+        message: '로그인 성공',
+        description : messege,
+  
+        icon: <UserOutlined style={{ color: 'black' }} />,
+        placement: 'topLeft'
+      });
+    }
+    if(code === false){ // 로그인 실패
+      notification.open({
+        message: '로그인 실패',
+        description : messege,
+  
+        icon: <UserOutlined style={{ color: 'red' }} />,
+        placement: 'topLeft'
+      });
+    }
+    
   };
 
   const emailCheck = useCallback(email => {
@@ -62,16 +74,28 @@ const LogIn = () => {
         password: password,
       };
 
-      axios.post('', dataToSubmit)
-      .then(() => {
-
+      axios.post('/api/users/login', dataToSubmit)
+      .then((response) => {
+        if(response.data.loginSuccess){
+          mutate(response.data.isAuth, false)
+          openNotification("로그인 성공", true);
+          props.histroy.push('/');
+        }
+        else{
+          openNotification(response.data.message, false);
+        }
       })
       .catch((err) => {
-        openNotification(err);
+        openNotification(err, false);
       })      
     }
   }, [email, emailCheck, password])
 
+  
+    if (data) {
+      return <Redirect to="/" />;
+    }
+  
   return (
     <Container>
       <Header>로그인</Header>
