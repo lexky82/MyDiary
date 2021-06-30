@@ -1,4 +1,4 @@
-import React, { useState, useCallback, ReactNode } from "react";
+import React, { useState, useCallback } from "react";
 import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios'
 import useSWR from "swr";
@@ -11,7 +11,7 @@ import { Form, Input, Button, notification } from 'antd';
 
 
 const SignUp = () => {
-  const { data, error, revalidate, mutate} = useSWR('/api/users/auth', fetcher);
+  const { data } = useSWR('/api/users/auth', fetcher);
 
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
@@ -92,6 +92,10 @@ const SignUp = () => {
       })
     }
   }, [email, emailCheck, mismatchError, name, password])
+
+  if (data) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <Container> 
