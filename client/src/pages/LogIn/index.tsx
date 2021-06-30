@@ -11,7 +11,7 @@ import { LockOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
 import { Form, Input, Button, Checkbox, notification } from 'antd';
 import { Header, Container } from "../SignUp/styles";
 
-const LogIn = (props: any) => {
+const LogIn = () => {
   const { data, error, revalidate, mutate} = useSWR('/api/users/auth', fetcher);
 
   const rememberMeChecked = localStorage.getItem("rememberMe") ? true : false;
@@ -77,9 +77,8 @@ const LogIn = (props: any) => {
       axios.post('/api/users/login', dataToSubmit)
       .then((response) => {
         if(response.data.loginSuccess){
-          mutate(response.data.isAuth, false)
           openNotification("로그인 성공", true);
-          props.histroy.push('/');
+          mutate(response.data.isAuth, false)
         }
         else{
           openNotification(response.data.message, false);
@@ -89,7 +88,7 @@ const LogIn = (props: any) => {
         openNotification(err, false);
       })      
     }
-  }, [email, emailCheck, password])
+  }, [email, emailCheck, password, mutate])
 
   
     if (data) {
