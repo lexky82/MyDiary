@@ -1,5 +1,6 @@
 import React from 'react'
-import { GoogleMap, GoogleMapProps, LoadScript } from '@react-google-maps/api';
+import { GoogleMap, LoadScript } from '@react-google-maps/api';
+import { Marker } from '@react-google-maps/api';
 
 const containerStyle = {
   width: '450x',
@@ -7,8 +8,8 @@ const containerStyle = {
 };
 
 const center = {
-  lat: -3.745,
-  lng: -38.523
+  lat: 37.54,
+  lng: 127.04
 };
 
 const mapClickHandler = (e: any) => {
@@ -19,11 +20,14 @@ function Googlemap() {
   return (
     <LoadScript
       googleMapsApiKey="AIzaSyBnBqc7xRJzchvJALTI6m5qberlS0AOJK0"
+      language="korean"
+      
     >
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
         zoom={10}
+        
         onClick={mapClickHandler}
       >
         { /* Child components, such as markers, info windows, etc. */ }
