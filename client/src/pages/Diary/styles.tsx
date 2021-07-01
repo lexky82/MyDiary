@@ -18,7 +18,8 @@ const { TextArea } = Input;
 
 export const SelectWheater = styled.div`
   font-size: 40px;
-  border: 1px solid black;
+  border: 1px solid #d9d9d9;
+  padding: 4px 11px
 
   & > svg {
     margin-right: 15px;
@@ -28,6 +29,10 @@ export const SelectWheater = styled.div`
 export const SubmitButton = styled(Button)`
   margin-top: 1.25rem;
   float: right;
+
+  @media screen and (max-width: 768px) {
+    width : 100%;
+  }
 `;
 
 export const SelectedDatePicker = styled(DatePicker)`

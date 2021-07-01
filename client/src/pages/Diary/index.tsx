@@ -112,8 +112,6 @@ const Diary = () => {
         <Sad />
       </SelectWheater>
 
-      <SelectWheater>
-
         <Input disabled style={{ width : "30%" }} />
 
         <Button type="primary" onClick={showModal} >지도</Button>
@@ -125,8 +123,8 @@ const Diary = () => {
         >
           <Googlemap />
         </Modal>
-      </SelectWheater>
-      <Content onChange={contentsChangeHandler} autoSize={{ minRows: 13 }} />
+
+      <Content onChange={contentsChangeHandler} autoSize={{ minRows: 13 }} placeholder="오늘의 이야기를 써볼까요?" />
 
       <ImageUploader withIcon={true} />
 
