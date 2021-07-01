@@ -1,11 +1,19 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Button, DatePicker, Input } from "antd";
 import {
+  BiCloud,
   BiCloudLightning,
   BiCloudRain,
   BiCloudSnow,
   BiSun,
 } from "react-icons/bi";
+import {
+  RiEmotionHappyLine,
+  RiEmotionNormalLine,
+  RiEmotionUnhappyLine,
+  RiEmotionSadLine,
+} from "react-icons/ri"
 const { TextArea } = Input;
 
 export const SelectWheater = styled.div`
@@ -29,7 +37,7 @@ export const SelectedDatePicker = styled(DatePicker)`
 
 export const Title = styled(Input)`
   width: 100%;
-  font-size: 22px;
+  font-size: 21.5px;
   font-weight: bold;
 `;
 
@@ -38,17 +46,37 @@ export const Content = styled(TextArea)`
 `;
 
 export const Rain = styled(BiCloudRain)`
-  color: #4169E1;
+  color: #4169e1;
 `;
 
 export const Sun = styled(BiSun)`
-  color: #FF0000;
+  color: #ff0000;
 `;
 
 export const Lightning = styled(BiCloudLightning)`
-  color: #AEB404;
+  color: #aeb404;
 `;
 
 export const Snow = styled(BiCloudSnow)`
   color: skyblue;
+`;
+
+export const Cloud = styled(BiCloud)`
+  color: #677486;
+`;
+
+export const Happy = styled(RiEmotionHappyLine)`
+  color : #87EA07;
+`;
+
+export const Normal = styled(RiEmotionNormalLine)`
+  
+`;
+
+export const Unhappy = styled(RiEmotionUnhappyLine)`
+  color :#7D7891;
+`;
+
+export const Sad = styled(RiEmotionSadLine)`
+  color : #1872F9;
 `;
