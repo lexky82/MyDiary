@@ -18,7 +18,7 @@ const diarySchma = mongoose.Schema({
         type : String 
     },
     location: {
-        type : String
+        type : Object
     }
 
 })
