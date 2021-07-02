@@ -1,10 +1,8 @@
 import React from 'react'
-import { GoogleMap, LoadScript } from '@react-google-maps/api';
-import { Marker } from '@react-google-maps/api';
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
 const containerStyle = {
-  width: '450x',
-  height: '450px'
+  height: '200px'
 };
 
 const center = {
@@ -12,11 +10,13 @@ const center = {
   lng: 127.04
 };
 
-const mapClickHandler = (e: any) => {
-    console.log(e);
+type props = {
+  mapLngHandler : Function,
+  mapLocation : any,
 }
 
-function Googlemap() {
+const Googlemap = ({ mapLngHandler, mapLocation }: props) => {
+
   return (
     <LoadScript
       googleMapsApiKey="AIzaSyBnBqc7xRJzchvJALTI6m5qberlS0AOJK0"
@@ -28,9 +28,12 @@ function Googlemap() {
         center={center}
         zoom={10}
         
-        onClick={mapClickHandler}
+        onClick={e => mapLngHandler(e)}
       >
-        { /* Child components, such as markers, info windows, etc. */ }
+        <Marker
+          position={mapLocation}
+        />
+        
         <></>
       </GoogleMap>
     </LoadScript>
