@@ -9,7 +9,7 @@ import "moment/locale/ko";
 /* Components */
 import { BiSend } from "react-icons/bi";
 import Googlemap from "../../components/Googlemap";
-import ImageUploader from "../../components/ImageUploader"
+import ImageUploader from "../../components/ImageUploader";
 import {
   Cloud,
   Content,
@@ -33,9 +33,12 @@ const Diary = () => {
   const [wheather, setWheather] = useState("");
   const [contents, setContents] = useState("");
   const [mapLocation, setMapLocation] = useState({});
-  const [images, setImages] = useState<Array<{ key: number; value: object }>>(
-    []
-  );
+  const [images, setImages] = useState<Array<Blob>>([]);
+  const [priviewImage, setPriviewImage] = useState<
+    Array<string | ArrayBuffer | undefined | null>
+  >([]);
+  const [emotion, setEmotion] = useState('')
+
   const titleChangeHandler = useCallback(
     (e: React.FormEvent<HTMLInputElement>) => {
       setTitle(e.currentTarget.value);
@@ -63,19 +66,26 @@ const Diary = () => {
     []
   );
 
-  const imgUploaderChangeHandler = (image: any) => {
+  const imgUploaderChangeHandler = (image: Array<Blob>) => {
+    imageReader(image);
+    setImages([...image]);
 
-    setImages({ ...image });
     console.log(images);
   };
 
-  const deleteHandler = (image: any) => {
-    const currentIndex = images.indexOf(image);
-    console.log(currentIndex);
+  const imageReader = (image: Array<Blob>) => {
+    let imageURLs: Array<string | null | ArrayBuffer> = [];
 
-    const newImages = [...images];
-    newImages.splice(currentIndex, 1);
-    setImages(newImages);
+    for (let i = 0; i < image.length; i++) {
+      let file = image[i];
+      let reader = new FileReader();
+
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        imageURLs[i] = reader.result;
+        setPriviewImage([...imageURLs]);
+      };
+    }
   };
 
   const onsubmitHandler = () => {
@@ -83,14 +93,19 @@ const Diary = () => {
       date: date,
       title: title,
       wheather: wheather,
+      emotion : emotion,
       location: mapLocation,
       contents: contents,
       image: images,
     };
 
     axios
-      .post("/api/diary/diary", body)
-      .then(() => {})
+      .post("/api/diary", body)
+      .then((response) => {
+        if(response.data.success){
+          console.log('게시 완료!')
+        }
+      })
       .catch((err) => {
         console.log(err);
       });
@@ -119,10 +134,10 @@ const Diary = () => {
       </SelectToday>
 
       <SelectToday>
-        <Happy />
-        <Normal />
-        <Unhappy />
-        <Sad />
+        <Happy onClick={() => setEmotion("happy")} />
+        <Normal onClick={() => setEmotion("normal")} />
+        <Unhappy onClick={() => setEmotion("unhappy")} />
+        <Sad onClick={() => setEmotion("sad")} />
       </SelectToday>
 
       <Content
@@ -136,18 +151,23 @@ const Diary = () => {
         mapLocation={mapLocation}
       />
 
-      <div style={{ display:'flex'}}>
+      <div style={{ display: "flex" }}>
         <ImageUploader imgUploaderChangeHandler={imgUploaderChangeHandler} />
-        <div>
-          {
-            images.map((image, index) => (
-              <img src="" alt="" key={index}/>
-            ))
-          }
+        <div style={{ overflowX: "auto", height: "200px" }}>
+          {priviewImage &&
+            priviewImage.map((image, index) => (
+              <img
+                width={400}
+                height={200}
+                alt="UploadImage"
+                key={index}
+                src={priviewImage[index]?.toString()}
+              />
+            ))}
         </div>
       </div>
-      
-      <SubmitButton type="primary" icon={<BiSend />} onSubmit={onsubmitHandler}>
+
+      <SubmitButton type="primary" icon={<BiSend />} onClick={onsubmitHandler}>
         작성
       </SubmitButton>
     </form>
