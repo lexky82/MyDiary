@@ -10,7 +10,8 @@ export const Nav = styled.nav`
   box-shadow: 4px 7px 10px rgba(0, 0, 0, 0.4);
 
   @media screen and (max-width: 768px) {
-    width: 60px;
+    width: 55px;
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.4);
   }
 `;
 
