@@ -30,14 +30,14 @@ import {
 const Diary = () => {
   const [date] = useState(moment());
   const [title, setTitle] = useState("");
-  const [wheather, setWheather] = useState("");
+  const [weather, setweather] = useState("");
   const [contents, setContents] = useState("");
   const [mapLocation, setMapLocation] = useState({});
   const [images, setImages] = useState<Array<Blob>>([]);
   const [priviewImage, setPriviewImage] = useState<
     Array<string | ArrayBuffer | undefined | null>
   >([]);
-  const [emotion, setEmotion] = useState('')
+  const [emotion, setEmotion] = useState("");
 
   const titleChangeHandler = useCallback(
     (e: React.FormEvent<HTMLInputElement>) => {
@@ -46,8 +46,8 @@ const Diary = () => {
     []
   );
 
-  const wheaterClickHandler = useCallback((wheather: string) => {
-    setWheather(wheather);
+  const weatherClickHandler = useCallback((weather: string) => {
+    setweather(weather);
   }, []);
 
   const contentsChangeHandler = useCallback((e) => {
@@ -92,8 +92,8 @@ const Diary = () => {
     const body = {
       date: date,
       title: title,
-      wheather: wheather,
-      emotion : emotion,
+      wheather: weather,
+      emotion: emotion,
       location: mapLocation,
       contents: contents,
       image: images,
@@ -102,8 +102,8 @@ const Diary = () => {
     axios
       .post("/api/diary", body)
       .then((response) => {
-        if(response.data.success){
-          console.log('게시 완료!')
+        if (response.data.success) {
+          console.log("게시 완료!");
         }
       })
       .catch((err) => {
@@ -123,14 +123,11 @@ const Diary = () => {
       <Title placeholder="제목" onChange={titleChangeHandler} value={title} />
 
       <SelectToday>
-        <Sun id="sun" onClick={() => wheaterClickHandler("sun")} />
-        <Cloud onClick={() => wheaterClickHandler("cloud")} />
-        <Rain id="rain" onClick={() => wheaterClickHandler("rain")} />
-        <Snow id="snow" onClick={() => wheaterClickHandler("snow")} />
-        <Lightning
-          id="lightning"
-          onClick={() => wheaterClickHandler("lightning")}
-        />
+        <Sun onClick={() => weatherClickHandler("sun")} />
+        <Cloud onClick={() => weatherClickHandler("cloud")} />
+        <Rain onClick={() => weatherClickHandler("rain")} />
+        <Snow onClick={() => weatherClickHandler("snow")} />
+        <Lightning onClick={() => weatherClickHandler("lightning")} />
       </SelectToday>
 
       <SelectToday>

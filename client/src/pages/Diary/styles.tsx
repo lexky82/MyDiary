@@ -46,22 +46,32 @@ export const Content = styled(TextArea)`
 
 export const Rain = styled(BiCloudRain)`
   color: #4169e1;
+  border: ${weather => (weather === 'rain'  ? '1px solid black' : 'none')};
+  border-radius: ${weather => (weather === 'rain'  ? '50%' : 'none')};
 `;
 
 export const Sun = styled(BiSun)`
   color: #ff0000;
+  border: ${props => (props === 'sun'  ? '1px solid black' : 'none')};
+  border-radius: ${weather => (weather === 'sun'  ? '50%' : 'none')};
 `;
 
 export const Lightning = styled(BiCloudLightning)`
   color: #aeb404;
+  border: ${weather => (weather === 'lightning'  ? '1px solid black' : 'none')};
+  border-radius: ${weather => (weather === 'lightning'  ? '50%' : 'none')};
 `;
 
 export const Snow = styled(BiCloudSnow)`
   color: skyblue;
+  border: ${weather => (weather === 'snow'  ? '1px solid black' : 'none')};
+  border-radius: ${weather => (weather === 'snow'  ? '50%' : 'none')};
 `;
 
 export const Cloud = styled(BiCloud)`
   color: #677486;
+  border: ${weather => (weather === 'cloud'  ? '1px solid black' : 'none')};
+  border-radius: ${weather => (weather === 'cloud'  ? '50%' : 'none')};
 `;
 
 export const Happy = styled(RiEmotionHappyLine)`
