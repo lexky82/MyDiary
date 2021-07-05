@@ -26,8 +26,9 @@ import {
   Title,
   Unhappy,
 } from "./styles";
+import { RouteComponentProps, withRouter } from "react-router-dom";
 
-const Diary = () => {
+const Diary = ({history}: RouteComponentProps) => {
   const [date] = useState(moment());
   const [title, setTitle] = useState("");
   const [weather, setweather] = useState("");
@@ -90,21 +91,26 @@ const Diary = () => {
   };
 
   const onsubmitHandler = () => {
+
+    const contentsReplaceNewline = () => {
+      return contents.replaceAll("<br>", "\r\n"); 
+    }
+
     const body = {
       date: date,
       title: title,
       wheather: weather,
       emotion: emotion,
       location: mapLocation,
-      contents: contents,
+      content: contentsReplaceNewline(),
       image: images,
     };
 
     axios
-      .post("/api/diary", body)
+      .post("/api/diary/", body)
       .then((response) => {
         if (response.data.success) {
-          console.log("게시 완료!");
+          history.push('/');
         }
       })
       .catch((err) => {
@@ -172,4 +178,4 @@ const Diary = () => {
   );
 };
 
-export default Diary;
+export default withRouter(Diary);
