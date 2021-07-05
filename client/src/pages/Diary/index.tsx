@@ -31,13 +31,14 @@ const Diary = () => {
   const [date] = useState(moment());
   const [title, setTitle] = useState("");
   const [weather, setweather] = useState("");
+  const [emotion, setEmotion] = useState("");
   const [contents, setContents] = useState("");
   const [mapLocation, setMapLocation] = useState({});
   const [images, setImages] = useState<Array<Blob>>([]);
   const [priviewImage, setPriviewImage] = useState<
     Array<string | ArrayBuffer | undefined | null>
   >([]);
-  const [emotion, setEmotion] = useState("");
+  
 
   const titleChangeHandler = useCallback(
     (e: React.FormEvent<HTMLInputElement>) => {
@@ -123,18 +124,18 @@ const Diary = () => {
       <Title placeholder="제목" onChange={titleChangeHandler} value={title} />
 
       <SelectToday>
-        <Sun onClick={() => weatherClickHandler("sun")} />
-        <Cloud onClick={() => weatherClickHandler("cloud")} />
-        <Rain onClick={() => weatherClickHandler("rain")} />
-        <Snow onClick={() => weatherClickHandler("snow")} />
-        <Lightning onClick={() => weatherClickHandler("lightning")} />
+        <Sun weather={weather} onClick={() => weatherClickHandler("sun")} />
+        <Cloud weather={weather} onClick={() => weatherClickHandler("cloud")} />
+        <Rain weather={weather} onClick={() => weatherClickHandler("rain")} />
+        <Snow weather={weather} onClick={() => weatherClickHandler("snow")} />
+        <Lightning weather={weather} onClick={() => weatherClickHandler("lightning")} />
       </SelectToday>
 
       <SelectToday>
-        <Happy onClick={() => setEmotion("happy")} />
-        <Normal onClick={() => setEmotion("normal")} />
-        <Unhappy onClick={() => setEmotion("unhappy")} />
-        <Sad onClick={() => setEmotion("sad")} />
+        <Happy emotion={emotion} onClick={() => setEmotion("happy")} />
+        <Normal emotion={emotion} onClick={() => setEmotion("normal")} />
+        <Unhappy emotion={emotion} onClick={() => setEmotion("unhappy")} />
+        <Sad emotion={emotion} onClick={() => setEmotion("sad")} />
       </SelectToday>
 
       <Content
