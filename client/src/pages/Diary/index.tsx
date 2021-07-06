@@ -2,6 +2,8 @@ import React, { useCallback, useState } from "react";
 
 /* Lib */
 import axios from "axios";
+import useSWR from "swr";
+import fetcher from "../../utils/fetcher";
 import locale from "antd/es/date-picker/locale/ko_KR";
 import moment from "moment";
 import "moment/locale/ko";
@@ -28,7 +30,12 @@ import {
 } from "./styles";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 
-const Diary = ({history}: RouteComponentProps) => {
+const Diary = ({ history }: RouteComponentProps) => {
+  const { data } = useSWR(
+    "/api/users/auth",
+    fetcher
+  );
+
   const [date] = useState(moment());
   const [title, setTitle] = useState("");
   const [weather, setweather] = useState("");
@@ -39,7 +46,6 @@ const Diary = ({history}: RouteComponentProps) => {
   const [priviewImage, setPriviewImage] = useState<
     Array<string | ArrayBuffer | undefined | null>
   >([]);
-  
 
   const titleChangeHandler = useCallback(
     (e: React.FormEvent<HTMLInputElement>) => {
@@ -91,12 +97,12 @@ const Diary = ({history}: RouteComponentProps) => {
   };
 
   const onsubmitHandler = () => {
-
     const contentsReplaceNewline = () => {
-      return contents.replaceAll("<br>", "\r\n"); 
-    }
+      return contents.replaceAll("<br>", "\r\n");
+    };
 
     const body = {
+      writer: data._id,
       date: date,
       title: title,
       wheather: weather,
@@ -110,7 +116,7 @@ const Diary = ({history}: RouteComponentProps) => {
       .post("/api/diary/", body)
       .then((response) => {
         if (response.data.success) {
-          history.push('/');
+          history.push("/");
         }
       })
       .catch((err) => {
@@ -134,7 +140,10 @@ const Diary = ({history}: RouteComponentProps) => {
         <Cloud weather={weather} onClick={() => weatherClickHandler("cloud")} />
         <Rain weather={weather} onClick={() => weatherClickHandler("rain")} />
         <Snow weather={weather} onClick={() => weatherClickHandler("snow")} />
-        <Lightning weather={weather} onClick={() => weatherClickHandler("lightning")} />
+        <Lightning
+          weather={weather}
+          onClick={() => weatherClickHandler("lightning")}
+        />
       </SelectToday>
 
       <SelectToday>
