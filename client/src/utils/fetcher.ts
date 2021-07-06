@@ -5,6 +5,6 @@ const fetcher = (url: string) =>
     .get(url, {
       withCredentials: true,
     })
-    .then((response) => response.data.isAuth);
+    .then((response) => response.data);
 
 export default fetcher;
