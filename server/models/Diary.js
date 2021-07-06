@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const diarySchma = mongoose.Schema({
+    writer : {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref:'User'
+    },
     title: {
         type: String,
         maxlength: 50
@@ -8,21 +12,21 @@ const diarySchma = mongoose.Schema({
     wheather: {
         type: String,
     },
-    image: {
-        type: Array,
+    emotion: {
+        type : String 
     },
     content: {
         type: String
     },
-    emotion: {
-        type : String 
-    },
     location: {
         type : Object
-    }
+    },
+    image: {
+        type: Array,
+        default: []
+    },
+}, { timestamps : true })
 
-})
-
-const Diary = mongoose.model('diary', diarySchma)
+const Diary = mongoose.model('mydiary', diarySchma)
 
 module.exports = { Diary }
