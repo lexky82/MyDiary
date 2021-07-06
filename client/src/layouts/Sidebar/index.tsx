@@ -18,23 +18,17 @@ const Sidebar = () => {
   return (
     <Nav>
       <Ul>
-        <Link to="/">
           <Li>
-            <HomeFilled style={{ width: "100%" }} />
+            <Link to="/" ><HomeFilled style={{ width: "100%" }} /></Link>
           </Li>
-        </Link>
-
-        <Link to="/calendar">
+        
           <Li>
-            <CalendarOutlined style={{ width: "100%" }} />
+            <Link to="/calendar" ><CalendarOutlined style={{ width: "100%" }} /></Link>
           </Li>
-        </Link>
-
-        <Link to="/diary">
+        
           <Li>
-            <PlusOutlined style={{ width: "100%" }} />
+            <Link to="/diary" ><PlusOutlined style={{ width: "100%" }} /></Link>
           </Li>
-        </Link>
       </Ul>
     </Nav>
   );

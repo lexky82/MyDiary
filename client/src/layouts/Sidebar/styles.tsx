@@ -23,9 +23,8 @@ export const Ul = styled.ul`
   }
 `;
 
-export const Li = styled.div`
+export const Li = styled.li`
   padding-bottom: 4rem;
-
   &:hover a:after {
     opacity: 5;
   }
