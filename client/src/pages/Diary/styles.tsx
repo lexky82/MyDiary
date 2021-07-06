@@ -62,7 +62,7 @@ export const PriviewImage = styled.img`
 `
 
 export const ImageBox = styled.div`
-  overflow-x : "auto";
+  overflow-x : auto;
   height : 200px;
 `;
 
