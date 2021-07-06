@@ -16,6 +16,7 @@ import { Form, Input, Button, Checkbox } from "antd";
 import { Header, Container } from "../SignUp/styles";
 import openNotification from "../../utils/Notification";
 
+/* Type */
 type init = string | undefined | null;
 type props = RouteChildrenProps;
 
