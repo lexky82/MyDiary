@@ -15,7 +15,9 @@ import ImageUploader from "../../components/ImageUploader";
 import {
   Cloud,
   Content,
+  FlexBox,
   Happy,
+  ImageBox,
   Lightning,
   Normal,
   Rain,
@@ -164,9 +166,9 @@ const Diary = ({ history }: RouteComponentProps) => {
         mapLocation={mapLocation}
       />
 
-      <div style={{ display: "flex" }}>
+      <FlexBox>
         <ImageUploader imgUploaderChangeHandler={imgUploaderChangeHandler} />
-        <div style={{ overflowX: "auto", height: "200px" }}>
+        <ImageBox>
           {priviewImage &&
             priviewImage.map((image, index) => (
               <img
@@ -177,8 +179,8 @@ const Diary = ({ history }: RouteComponentProps) => {
                 src={priviewImage[index]?.toString()}
               />
             ))}
-        </div>
-      </div>
+        </ImageBox>
+      </FlexBox>
 
       <SubmitButton type="primary" icon={<BiSend />} onClick={onsubmitHandler}>
         작성

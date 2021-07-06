@@ -52,6 +52,20 @@ export const Content = styled(TextArea)`
   font-size: 18px;
 `;
 
+export const FlexBox= styled.div`
+  display : flex;
+`;
+
+export const PriviewImage = styled.img`
+  width : 200px;
+  height : 400px;
+`
+
+export const ImageBox = styled.div`
+  overflow-x : "auto";
+  height : 200px;
+`;
+
 export const Rain = styled(BiCloudRain)<weather>`
   color: #4169e1;
   border: ${(props) =>
