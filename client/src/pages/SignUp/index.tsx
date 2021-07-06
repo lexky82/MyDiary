@@ -7,7 +7,8 @@ import fetcher from "../../utils/fetcher";
 /* Components */
 import { Container, Header } from "./styles";
 import { LockOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
-import { Form, Input, Button, notification } from 'antd';
+import { Form, Input, Button } from 'antd';
+import openNotification from "../../utils/Notification";
 
 
 const SignUp = () => {
@@ -19,29 +20,6 @@ const SignUp = () => {
   const [passwordCheck, setPasswordCheck] = useState('');
   const [mismatchError, setMismatchError] = useState(false);
   const [signUpError, setSignUpError] = useState('')
-  
-  const openNotification = (messege: string, code: boolean) => {
-
-    if(code === true){ // 회원가입 성공
-      notification.open({
-        message: '회원가입 성공',
-        description : messege,
-  
-        icon: <UserOutlined style={{ color: 'black' }} />,
-        placement: 'topLeft'
-      });
-    }
-    if(code === false){ // 회원가입 실패
-      notification.open({
-        message: '회원가입 실패',
-        description : messege,
-  
-        icon: <UserOutlined style={{ color: 'red' }} />,
-        placement: 'topLeft'
-      });
-    }
-    
-  };
 
   const emailCheck = useCallback(email => {    
     const regex = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
@@ -81,14 +59,14 @@ const SignUp = () => {
       axios.post('/api/users/register', dataToSubmit)
       .then((resonse) => {
         if(resonse.data.success){
-          openNotification('회원가입을 성공하였습니다.', true);
+          openNotification('회원가입 성공' ,'회원가입을 성공하였습니다.', true);
         }
         else {
-          openNotification('회원가입에 실패했습니다.', false)
+          openNotification('회원가입 실패', '회원가입에 실패했습니다.', false)
         }
       })
       .catch((err) => {
-        openNotification(err, false);
+        openNotification('회원가입 오류', err.toString(), false);
       })
     }
   }, [email, emailCheck, mismatchError, name, password])
