@@ -1,15 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const { Diary } = require("../models/Diary");
-const { auth } = require('../middleware/auth')
-const multer = require('multer');
 
 //=================================
 //             Diary
 //=================================
 
 router.post("/", (req, res) => {
-    
+
     const diary = new Diary(req.body)
 
     diary.save((err) => {
@@ -20,3 +18,5 @@ router.post("/", (req, res) => {
         });
     });
 });
+
+module.exports = router;

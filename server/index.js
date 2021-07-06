@@ -18,6 +18,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use('/api/users', require('./routes/users'));
+app.use('/api/diary', require('./routes/diary'));
 
 /* app.use(express.static("client/build"));
 
