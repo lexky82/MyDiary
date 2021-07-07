@@ -33,11 +33,7 @@ import {
 import { RouteComponentProps, withRouter } from "react-router-dom";
 
 const Diary = ({ history }: RouteComponentProps) => {
-  const { data } = useSWR(
-    "/api/users/auth",
-    fetcher
-  );
-
+  const { data } = useSWR("/api/users/auth", fetcher);
   const [date] = useState(moment());
   const [title, setTitle] = useState("");
   const [weather, setweather] = useState("");
@@ -70,7 +66,6 @@ const Diary = ({ history }: RouteComponentProps) => {
         lat: location.latLng?.lat(),
         lng: location.latLng?.lng(),
       };
-      console.log(latLng);
       setMapLocation({ ...latLng });
     },
     []
@@ -79,8 +74,6 @@ const Diary = ({ history }: RouteComponentProps) => {
   const imgUploaderChangeHandler = (image: Array<Blob>) => {
     imageReader(image);
     setImages([...image]);
-
-    console.log(images);
   };
 
   const imageReader = (image: Array<Blob>) => {
@@ -98,6 +91,16 @@ const Diary = ({ history }: RouteComponentProps) => {
     }
   };
 
+  const imageUploadHandler = () => {
+    const formData = new FormData();
+
+    for (let count in images) {
+      formData.append("images", images[count]);
+    }
+
+    return formData;
+  };
+
   const onsubmitHandler = () => {
     const contentsReplaceNewline = () => {
       return contents.replaceAll("<br>", "\r\n");
@@ -113,6 +116,13 @@ const Diary = ({ history }: RouteComponentProps) => {
       content: contentsReplaceNewline(),
       image: images,
     };
+
+    const imageFile = imageUploadHandler();
+
+    axios.post("/api/diary/", imageFile).catch((err) => {
+      // 서버 이미지 업로드
+      console.log(err);
+    });
 
     axios
       .post("/api/diary/", body)
