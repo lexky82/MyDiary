@@ -20,6 +20,7 @@
     "axios": "^0.21.1",
     "dotenv": "^10.0.0",
     "react": "^17.0.2",
+    "react-big-calendar": "^0.33.5",
     "react-dom": "^17.0.2",
     "react-icons": "^4.2.0",
     "react-images-upload": "^1.2.8",
@@ -55,6 +56,7 @@
   },
   "devDependencies": {
     "@types/google.maps": "^3.45.4",
+    "@types/react-big-calendar": "^0.31.4",
     "@types/react-router-dom": "^5.1.7"
   },
   "proxy": "http://localhost:5000"
