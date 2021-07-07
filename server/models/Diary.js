@@ -9,13 +9,13 @@ const diarySchma = mongoose.Schema({
         type: String,
         maxlength: 50
     },
-    wheather: {
+    weather: {
         type: String,
     },
     emotion: {
         type : String 
     },
-    content: {
+    contents: {
         type: String
     },
     location: {
@@ -23,8 +23,8 @@ const diarySchma = mongoose.Schema({
     },
     image: {
         type: Array,
-        default: []
-    },
+        default : []
+    }
 }, { timestamps : true })
 
 const Diary = mongoose.model('mydiary', diarySchma)
