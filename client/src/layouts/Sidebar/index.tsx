@@ -10,7 +10,7 @@ const Sidebar = () => {
     "/api/users/auth",
     fetcher
   );
-  
+
   if (!data) {
     return <Redirect to="/login" />;
   }
@@ -18,17 +18,23 @@ const Sidebar = () => {
   return (
     <Nav>
       <Ul>
-          <Li>
-            <Link to="/" ><HomeFilled style={{ width: "100%" }} /></Link>
-          </Li>
-        
-          <Li>
-            <Link to="/calendar" ><CalendarOutlined style={{ width: "100%" }} /></Link>
-          </Li>
-        
-          <Li>
-            <Link to="/diary" ><PlusOutlined style={{ width: "100%" }} /></Link>
-          </Li>
+        <Li>
+          <Link to="/">
+            <HomeFilled style={{ width: "100%" }} />
+          </Link>
+        </Li>
+
+        <Li>
+          <Link to="/calendar">
+            <CalendarOutlined style={{ width: "100%" }} />
+          </Link>
+        </Li>
+
+        <Li>
+          <Link to="/diary">
+            <PlusOutlined style={{ width: "100%" }} />
+          </Link>
+        </Li>
       </Ul>
     </Nav>
   );
