@@ -8,7 +8,7 @@ import fetcher from "../../utils/fetcher";
 import { Container, Header } from "./styles";
 import { LockOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
 import { Form, Input, Button } from 'antd';
-import openNotification from "../../utils/Notification";
+import openNotification from "../../components/Notification";
 
 
 const SignUp = () => {

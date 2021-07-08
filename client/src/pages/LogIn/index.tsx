@@ -14,7 +14,7 @@ import fetcher from "../../utils/fetcher";
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
 import { Form, Input, Button, Checkbox } from "antd";
 import { Header, Container } from "../SignUp/styles";
-import openNotification from "../../utils/Notification";
+import openNotification from "../../components/Notification";
 
 /* Type */
 type init = string | undefined | null;
@@ -28,6 +28,7 @@ const LogIn = ({ history }: props) => {
 
   useEffect(() => {
     if (data && data.isAuth) {
+      openNotification("로그인 성공", "로그인 성공하였습니다", true);
       history.push("/");
     }
   }, [data]);
@@ -79,7 +80,6 @@ const LogIn = ({ history }: props) => {
           .post("/api/users/login", dataToSubmit)
           .then((response) => {
             if (response.data.loginSuccess) {
-              openNotification("로그인 성공", "로그인 성공하였습니다", true);
               mutate(response.data, false);
             } else {
               openNotification("로그인 실패", response.data.message, false);
