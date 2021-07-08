@@ -36,4 +36,12 @@ router.post("/", (req, res) => {
     });
 });
 
+router.get("/", (req, res) => {
+    Diary.find()
+        .exec((err, DiaryData) => {
+            if (err) return res.status(400).json({ success: false, err })
+            return res.status(200).json({ success: true, diaryData: DiaryData })
+        })
+});
+
 module.exports = router;
