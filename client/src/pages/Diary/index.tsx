@@ -2,6 +2,7 @@ import React, { useCallback, useState } from "react";
 
 /* Lib */
 import axios from "axios";
+import { RouteComponentProps, withRouter } from "react-router-dom";
 import useSWR from "swr";
 import fetcher from "../../utils/fetcher";
 import locale from "antd/es/date-picker/locale/ko_KR";
@@ -13,24 +14,28 @@ import { BiSend } from "react-icons/bi";
 import Googlemap from "../../components/Googlemap";
 import ImageUploader from "../../components/ImageUploader";
 import {
-  Cloud,
   Content,
   FlexBox,
-  Happy,
   ImageBox,
-  Lightning,
-  Normal,
-  Rain,
-  Sad,
   SelectedDatePicker,
   SelectToday,
-  Snow,
   SubmitButton,
-  Sun,
   Title,
-  Unhappy,
 } from "./styles";
-import { RouteComponentProps, withRouter } from "react-router-dom";
+import {
+  Happy,
+  Normal,
+  Sad,
+  Unhappy,
+} from "../../utils/styles/emotion_styledIcon";
+import {
+  Cloud,
+  Lightning,
+  Rain,
+  Snow,
+  Sun,
+} from "../../utils/styles/weather_styledIcon";
+import openNotification from "../../components/Notification";
 
 const Diary = ({ history }: RouteComponentProps) => {
   const { data } = useSWR("/api/users/auth", fetcher);
@@ -102,6 +107,12 @@ const Diary = ({ history }: RouteComponentProps) => {
   };
 
   const onsubmitHandler = () => {
+
+    if(!title || !contents){
+      openNotification("일기 작성실패", "제목과 내용은 필수로 입력해야합니다.", false);
+      return
+    }
+
     const contentsReplaceNewline = () => {
       return contents.replaceAll("<br>", "\r\n");
     };
@@ -113,7 +124,7 @@ const Diary = ({ history }: RouteComponentProps) => {
       wheather: weather,
       emotion: emotion,
       location: mapLocation,
-      content: contentsReplaceNewline(),
+      contents: contentsReplaceNewline(),
       image: images,
     };
 
@@ -128,10 +139,12 @@ const Diary = ({ history }: RouteComponentProps) => {
       .post("/api/diary/", body)
       .then((response) => {
         if (response.data.success) {
+          openNotification("일기 작성완료!", "일기를 저장하였습니다.", true);
           history.push("/");
         }
       })
       .catch((err) => {
+        openNotification("일기 작성실패!", err.toString(), false);
         console.log(err);
       });
   };
