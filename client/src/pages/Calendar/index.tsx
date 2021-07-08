@@ -1,12 +1,16 @@
-import React from 'react'
-import CustomCalendar from '../../components/Calendar'
+import React, { useEffect } from "react";
+
+/* Lib */
+
+/* Components */
+import CustomCalendar from "../../components/CustomCalendar";
 
 const Calendar = () => {
-    return (
-        <div>
-            <CustomCalendar />
-        </div>
-    )
-}
+  return (
+    <div>
+      <CustomCalendar />
+    </div>
+  );
+};
 
-export default Calendar
+export default Calendar;
