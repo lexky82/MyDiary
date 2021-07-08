@@ -84,13 +84,13 @@ const Diary = ({ history }: RouteComponentProps) => {
   const imageReader = (image: Array<Blob>) => {
     let imageURLs: Array<string | null | ArrayBuffer> = [];
 
-    for (let i = 0; i < image.length; i++) {
-      let file = image[i];
+    for (let count in images) {
+      let file = image[count];
       let reader = new FileReader();
 
       reader.readAsDataURL(file);
       reader.onload = () => {
-        imageURLs[i] = reader.result;
+        imageURLs[count] = reader.result;
         setPriviewImage([...imageURLs]);
       };
     }
