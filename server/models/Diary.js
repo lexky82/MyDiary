@@ -23,7 +23,6 @@ const diarySchma = mongoose.Schema({
     },
     image: {
         type: Array,
-        default : []
     }
 }, { timestamps : true })
 
