@@ -121,7 +121,7 @@ const Diary = ({ history }: RouteComponentProps) => {
       writer: data._id,
       date: date,
       title: title,
-      wheather: weather,
+      weather: weather,
       emotion: emotion,
       location: mapLocation,
       contents: contentsReplaceNewline(),
