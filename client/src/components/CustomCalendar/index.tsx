@@ -1,18 +1,17 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 /* Lib */
 import { Calendar } from "antd";
 import locale from "antd/es/calendar/locale/ko_KR";
-import dateCellRender from "./dateCellRender";
 
 /* Components */
+import dateCellRender from "./dateCellRender";
 
-const CustomCalendar = () => {
-  return (
-    <div>
-      <Calendar locale={locale} dateCellRender={dateCellRender} />
-    </div>
-  );
-};
+const CustomCalendar = () => (
+  <Calendar
+    locale={locale}
+    dateCellRender={dateCellRender}
+  />
+);
 
 export default CustomCalendar;
