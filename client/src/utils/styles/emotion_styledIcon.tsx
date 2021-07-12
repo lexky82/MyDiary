@@ -9,6 +9,7 @@ import {
 
 type emotion = {
   emotion: string;
+  size: string;
 };
 
 export const Happy = styled(RiEmotionHappyLine)<emotion>`
@@ -16,12 +17,14 @@ export const Happy = styled(RiEmotionHappyLine)<emotion>`
   border: ${(props) =>
     props.emotion === "happy" ? "1px solid black" : "none"};
   border-radius: ${(props) => (props.emotion === "happy" ? "50%" : "none")};
+  font-size: ${(props) => props.size};
 `;
 
 export const Normal = styled(RiEmotionNormalLine)<emotion>`
   border: ${(props) =>
     props.emotion === "normal" ? "1px solid black" : "none"};
   border-radius: ${(props) => (props.emotion === "normal" ? "50%" : "none")};
+  font-size: ${(props) => props.size};
 `;
 
 export const Unhappy = styled(RiEmotionUnhappyLine)<emotion>`
@@ -29,10 +32,12 @@ export const Unhappy = styled(RiEmotionUnhappyLine)<emotion>`
   border: ${(props) =>
     props.emotion === "unhappy" ? "1px solid black" : "none"};
   border-radius: ${(props) => (props.emotion === "unhappy" ? "50%" : "none")};
+  font-size: ${(props) => props.size};
 `;
 
 export const Sad = styled(RiEmotionSadLine)<emotion>`
   color: #1872f9;
   border: ${(props) => (props.emotion === "sad" ? "1px solid black" : "none")};
   border-radius: ${(props) => (props.emotion === "sad" ? "50%" : "none")};
+  font-size: ${(props) => props.size};
 `;
