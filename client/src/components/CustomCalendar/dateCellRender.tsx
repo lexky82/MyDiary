@@ -44,15 +44,19 @@ const DateCellRender = (value: moment.Moment) => {
   const WeatherRander = ({ weather }: { weather: string }) => {
     switch (weather) {
       case "sun":
-        return <Sun weather="none" style={{ fontSize: "50px" }} />;
+        return <Sun size="30px" weather="none" />;
       case "cloud":
-        return <Cloud weather="none" style={{ fontSize: "50px" }} />;
+        return (
+          <Cloud size="30px" weather="none" />
+        );
       case "rain":
-        return <Rain weather="none" style={{ fontSize: "50px" }} />;
+        return <Rain size="30px" weather="none" />;
       case "snow":
-        return <Snow weather="none" style={{ fontSize: "50px" }} />;
+        return <Snow size="30px" weather="none" />;
       case "lightning":
-        return <Lightning weather="none" style={{ fontSize: "50px" }} />;
+        return (
+          <Lightning size="30px" weather="none" />
+        );
       default:
         return <div></div>;
     }
@@ -61,13 +65,13 @@ const DateCellRender = (value: moment.Moment) => {
   const EmotioinRender = ({ emotion }: { emotion: string }) => {
     switch (emotion) {
       case "happy":
-        return <Happy emotion="none" style={{ fontSize: "50px" }} />;
+        return <Happy size="30px" emotion="none" />;
       case "normal":
-        return <Normal emotion="none" style={{ fontSize: "50px" }} />;
+        return <Normal size="30px" emotion="none" />;
       case "unhappy":
-        return <Unhappy emotion="none" style={{ fontSize: "50px" }} />;
-      case "Sad":
-        return <Sad emotion="none" style={{ fontSize: "50px" }} />;
+        return <Unhappy size="30px" emotion="none" />;
+      case "sad":
+        return <Sad size="30px" emotion="none" />;
       default:
         return <div></div>;
     }

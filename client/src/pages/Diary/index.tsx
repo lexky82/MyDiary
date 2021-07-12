@@ -107,10 +107,13 @@ const Diary = ({ history }: RouteComponentProps) => {
   };
 
   const onsubmitHandler = () => {
-
-    if(!title || !contents){
-      openNotification("일기 작성실패", "제목과 내용은 필수로 입력해야합니다.", false);
-      return
+    if (!title || !contents) {
+      openNotification(
+        "일기 작성실패",
+        "제목과 내용은 필수로 입력해야합니다.",
+        false
+      );
+      return;
     }
 
     const contentsReplaceNewline = () => {
@@ -161,21 +164,50 @@ const Diary = ({ history }: RouteComponentProps) => {
       <Title placeholder="제목" onChange={titleChangeHandler} value={title} />
 
       <SelectToday>
-        <Sun weather={weather} onClick={() => weatherClickHandler("sun")} />
-        <Cloud weather={weather} onClick={() => weatherClickHandler("cloud")} />
-        <Rain weather={weather} onClick={() => weatherClickHandler("rain")} />
-        <Snow weather={weather} onClick={() => weatherClickHandler("snow")} />
+        <Sun
+          size="40px"
+          weather={weather}
+          onClick={() => weatherClickHandler("sun")}
+        />
+        <Cloud
+          size="40px"
+          weather={weather}
+          onClick={() => weatherClickHandler("cloud")}
+        />
+        <Rain
+          size="40px"
+          weather={weather}
+          onClick={() => weatherClickHandler("rain")}
+        />
+        <Snow
+          size="40px"
+          weather={weather}
+          onClick={() => weatherClickHandler("snow")}
+        />
         <Lightning
+          size="40px"
           weather={weather}
           onClick={() => weatherClickHandler("lightning")}
         />
       </SelectToday>
 
       <SelectToday>
-        <Happy emotion={emotion} onClick={() => setEmotion("happy")} />
-        <Normal emotion={emotion} onClick={() => setEmotion("normal")} />
-        <Unhappy emotion={emotion} onClick={() => setEmotion("unhappy")} />
-        <Sad emotion={emotion} onClick={() => setEmotion("sad")} />
+        <Happy
+          size="40px"
+          emotion={emotion}
+          onClick={() => setEmotion("happy")}
+        />
+        <Normal
+          size="40px"
+          emotion={emotion}
+          onClick={() => setEmotion("normal")}
+        />
+        <Unhappy
+          size="40px"
+          emotion={emotion}
+          onClick={() => setEmotion("unhappy")}
+        />
+        <Sad size="40px" emotion={emotion} onClick={() => setEmotion("sad")} />
       </SelectToday>
 
       <Content
