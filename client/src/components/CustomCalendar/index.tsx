@@ -9,21 +9,10 @@ import dateCellRender from "./dateCellRender";
 import moment from "moment";
 import useSWR from "swr";
 import fetcher from "../../utils/fetcher";
-
-type diaryType = {
-  id: string;
-  writer: string;
-  title: string;
-  emotion: string;
-  weather: string;
-  contents: string;
-  createdAt: string;
-  updatedAt: string;
-  location: { lat: number; lng: number };
-};
+import { diaryType } from "../../type";
 
 const CustomCalendar = () => {
-  const { data } = useSWR("/api/diary/", fetcher);
+  const { data, revalidate } = useSWR("/api/diary/", fetcher);
   const [DateCellModal, setDateCellModal] = useState(false);
   const [selectDiary, setSelectDiary] = useState<diaryType>();
 
