@@ -3,15 +3,15 @@ import styled from "@emotion/styled";
 export const Nav = styled.nav`
   width: 80px;
   position: fixed;
-  top: 0;
   height: 100vh;
   z-index: 100;
   background-color: #202020;
   box-shadow: 4px 7px 10px rgba(0, 0, 0, 0.4);
 
   @media screen and (max-width: 768px) {
-    width: 55px;
-    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.4);
+    bottom: 0;
+    width: 100%;
+    height: 10%;
   }
 `;
 
@@ -20,6 +20,11 @@ export const Ul = styled.ul`
   color: white;
   &:first-child {
     padding-top: 1.5rem;
+  }
+
+  @media screen and (max-width: 768px) {
+    display: flex;
+    justify-content: space-evenly;
   }
 `;
 
