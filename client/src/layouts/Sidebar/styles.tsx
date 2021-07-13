@@ -11,7 +11,7 @@ export const Nav = styled.nav`
   @media screen and (max-width: 768px) {
     bottom: 0;
     width: 100%;
-    height: 10%;
+    height: 9%;
   }
 `;
 
@@ -39,14 +39,15 @@ export const Li = styled.li`
   }
 
   svg {
-    width: 26px;
-    height: 26px;
+    width: 1.7rem;
+    height: 1.4rem;
     position: relative;
-    left: -25px;
+    left: -1.563rem;
     cursor: pointer;
+
     @media screen and(min-width:768px) {
-      width: 32px;
-      height: 32px;
+      width: 1.5rem;
+      height: 1.4rem;
       left: -15px;
     }
   }
