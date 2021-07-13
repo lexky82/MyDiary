@@ -1,15 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 /* Lib */
 
 /* Components */
 import CustomCalendar from "../../components/CustomCalendar";
-import DoughnutChart from "../../components/DoughnutChart";
 
 const Calendar = () => {
   return (
     <div>
-      <DoughnutChart />
       <CustomCalendar />
     </div>
   );
