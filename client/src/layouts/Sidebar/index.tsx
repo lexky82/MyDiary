@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, Redirect } from "react-router-dom";
 import { Li, Nav, Ul } from "./styles";
-import { HomeFilled, CalendarOutlined, PlusOutlined } from "@ant-design/icons";
+import { HomeFilled, CalendarOutlined, PlusOutlined, EnvironmentOutlined } from "@ant-design/icons";
 import useSWR from "swr";
 import fetcher from "../../utils/fetcher";
 
@@ -27,6 +27,12 @@ const Sidebar = () => {
         <Li>
           <Link to="/calendar">
             <CalendarOutlined style={{ width: "100%" }} />
+          </Link>
+        </Li>
+
+        <Li>
+          <Link to="/mapview">
+            <EnvironmentOutlined style={{ width: "100%" }} />
           </Link>
         </Li>
 
