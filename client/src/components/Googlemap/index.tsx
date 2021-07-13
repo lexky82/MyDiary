@@ -1,10 +1,6 @@
 import React from 'react'
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
-const containerStyle = {
-  height: '400px'
-};
-
 const center = {
   lat: 37.54,
   lng: 127.04
@@ -13,9 +9,10 @@ const center = {
 type props = {
   mapLngHandler : Function,
   mapLocation : any,
+  containerStyle : object,
 }
 
-const Googlemap = ({ mapLngHandler, mapLocation }: props) => {
+const Googlemap = ({ mapLngHandler, mapLocation, containerStyle }: props) => {
 
   return (
     <LoadScript

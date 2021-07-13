@@ -217,6 +217,7 @@ const Diary = ({ history }: RouteComponentProps) => {
       />
 
       <Googlemap
+        containerStyle={{ height: '400px' }}
         mapLngHandler={googleMapLngChangeHandler}
         mapLocation={mapLocation}
       />
