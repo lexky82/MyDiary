@@ -9,3 +9,12 @@ export type diaryType = {
   updatedAt: string;
   location: { lat: number; lng: number };
 };
+
+export type imageType = {
+  lastModified: number;
+  lastModifiedDate: moment.Moment;
+  name: string;
+  size: number;
+  type: string;
+  webkitRelativePath: string;
+};
