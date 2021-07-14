@@ -36,6 +36,7 @@ import {
   Sun,
 } from "../../utils/styles/weather_styledIcon";
 import openNotification from "../../components/Notification";
+import { imageType } from "../../type";
 
 const Diary = ({ history }: RouteComponentProps) => {
   const { data } = useSWR("/api/users/auth", fetcher);
@@ -84,13 +85,14 @@ const Diary = ({ history }: RouteComponentProps) => {
   const imageReader = (image: Array<Blob>) => {
     let imageURLs: Array<string | null | ArrayBuffer> = [];
 
-    for (let count in images) {
-      let file = image[count];
+    for (let i = 0; i < image.length; i++) {
+      let file = image[i];
       let reader = new FileReader();
 
       reader.readAsDataURL(file);
+
       reader.onload = () => {
-        imageURLs[count] = reader.result;
+        imageURLs[i] = reader.result;
         setPriviewImage([...imageURLs]);
       };
     }
@@ -98,9 +100,8 @@ const Diary = ({ history }: RouteComponentProps) => {
 
   const imageUploadHandler = () => {
     const formData = new FormData();
-
-    for (let count in images) {
-      formData.append("images", images[count]);
+    for (let i = 0; i < images.length; i++) {
+      formData.append("images", images[i]);
     }
 
     return formData;
@@ -116,9 +117,16 @@ const Diary = ({ history }: RouteComponentProps) => {
       return;
     }
 
+    const imageFile = imageUploadHandler();
+    axios.post('/api/diary/upload', imageFile)
+
     const contentsReplaceNewline = () => {
       return contents.replaceAll("<br>", "\r\n");
     };
+
+    const config = { 
+      headers: { 'content-type': 'multipart/fomr-data' }
+    }
 
     const body = {
       writer: data._id,
@@ -128,22 +136,15 @@ const Diary = ({ history }: RouteComponentProps) => {
       emotion: emotion,
       location: mapLocation,
       contents: contentsReplaceNewline(),
-      image: images,
+      image: priviewImage,
     };
-
-    const imageFile = imageUploadHandler();
-
-    axios.post("/api/diary/", imageFile).catch((err) => {
-      // 서버 이미지 업로드
-      console.log(err);
-    });
 
     axios
       .post("/api/diary/", body)
       .then((response) => {
         if (response.data.success) {
           openNotification("일기 작성완료!", "일기를 저장하였습니다.", true);
-          history.push("/");
+         // history.push("/");
         }
       })
       .catch((err) => {
@@ -218,7 +219,7 @@ const Diary = ({ history }: RouteComponentProps) => {
 
       <Googlemap
         containerStyle={{ height: '400px' }}
-        mapLngHandler={googleMapLngChangeHandler}
+        mapClickHandler={googleMapLngChangeHandler}
         mapLocation={mapLocation}
       />
 
