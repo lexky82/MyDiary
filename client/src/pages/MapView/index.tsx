@@ -1,32 +1,40 @@
-import React, { useCallback, useState } from 'react'
-import Googlemap from '../../components/Googlemap'
+import React from "react";
+import useSWR from "swr";
+import DiaryList from "../../components/DiaryList";
+import Googlemap from "../../components/Googlemap";
+import { diaryType } from "../../type";
+import fetcher from "../../utils/fetcher";
 
 const MapView = () => {
-    const [mapLocation, setMapLocation] = useState({});
+  const { data } = useSWR("/api/diary/", fetcher);
+  const diaryData: Array<diaryType> = data && data.diaryData;
+  const locationData: Array<Object> = [];
 
-    const containerStyle = {
-        height : '100vh'
-    }
+  diaryData && diaryData.map(diary => {
+    locationData.push(diary.location);
+  })
 
-    const googleMapLngChangeHandler = useCallback(
-        (location: google.maps.MapMouseEvent) => {
-          const latLng = {
-            lat: location.latLng?.lat(),
-            lng: location.latLng?.lng(),
-          };
-          setMapLocation({ ...latLng });
-        },
-        []
-      );
+  console.log(locationData)
 
-    return (
+  const containerStyle = {
+    height: "70vh",
+  };
 
-        <Googlemap
-            mapLngHandler={googleMapLngChangeHandler}
-            mapLocation={mapLocation}
-            containerStyle={containerStyle}
+  const googleMapLngChangeHandler = () => {
+
+  }
+
+  return (
+    <div>
+      <Googlemap
+        mapClickHandler={googleMapLngChangeHandler}
+        mapLocation={locationData}
+        containerStyle={containerStyle}
       />
-    )
-}
 
-export default MapView
+      <DiaryList />
+    </div>
+  );
+};
+
+export default MapView;
