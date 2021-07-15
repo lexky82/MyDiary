@@ -1,5 +1,5 @@
-import React, { useState, useCallback } from "react";
-import { Link, Redirect } from 'react-router-dom';
+import React, { useState, useCallback, useEffect } from "react";
+import { Link, Redirect, RouteChildrenProps } from 'react-router-dom';
 import axios from 'axios'
 import useSWR from "swr";
 import fetcher from "../../utils/fetcher";
@@ -10,8 +10,9 @@ import { LockOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
 import { Form, Input, Button } from 'antd';
 import openNotification from "../../components/Notification";
 
+type props = RouteChildrenProps;
 
-const SignUp = () => {
+const SignUp = ({ history }: props ) => {
   const { data } = useSWR('/api/users/auth', fetcher);
 
   const [email, setEmail] = useState('');
@@ -20,6 +21,13 @@ const SignUp = () => {
   const [passwordCheck, setPasswordCheck] = useState('');
   const [mismatchError, setMismatchError] = useState(false);
   const [signUpError, setSignUpError] = useState('')
+
+  useEffect(() => {
+    if (data && data.isAuth) {
+      openNotification("로그인 성공", "로그인 성공하였습니다", true);
+      history.push("/");
+    }
+  }, [data]);
 
   const emailCheck = useCallback(email => {    
     const regex = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
@@ -60,6 +68,7 @@ const SignUp = () => {
       .then((resonse) => {
         if(resonse.data.success){
           openNotification('회원가입 성공' ,'회원가입을 성공하였습니다.', true);
+          history.push('/login')
         }
         else {
           openNotification('회원가입 실패', '회원가입에 실패했습니다.', false)
@@ -70,10 +79,6 @@ const SignUp = () => {
       })
     }
   }, [email, emailCheck, mismatchError, name, password])
-
-  if (data) {
-    return <Redirect to="/" />;
-  }
 
   return (
     <Container> 
