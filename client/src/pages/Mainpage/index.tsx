@@ -1,11 +1,12 @@
-import React from 'react'
+import React from "react";
+import DiaryList from "../../components/DiaryList";
 
 const Mainpage = () => {
-    return (
-        <div>
+  return (
+    <div>
+      <DiaryList />
+    </div>
+  );
+};
 
-        </div>
-    )
-}
-
-export default Mainpage
+export default Mainpage;
