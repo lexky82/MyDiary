@@ -9,6 +9,7 @@ const SignUp = loadable(() => import("../../pages/SignUp"));
 const Calendar = loadable(() => import("../../pages/Calendar"));
 const MapView = loadable(() => import("../../pages/MapView"));
 const Diary = loadable(() => import("../../pages/Diary"));
+const ViewDiary = loadable(() => import('../../pages/ViewDiary'))
 const Mainpage = loadable(() => import("../../pages/Mainpage"));
 
 const App = () => {
@@ -23,6 +24,7 @@ const App = () => {
           <Route exact path="/calendar" component={Calendar} />
           <Route exact path="/diary" component={Diary} />
           <Route exact path="/mapview" component={MapView}  />
+          <Route exact path="/viewdiary/:diaryid" component={ViewDiary} />
         </CoverSidebar>
       </div>
     </Switch>
