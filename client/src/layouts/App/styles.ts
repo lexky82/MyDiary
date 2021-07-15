@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 export const CoverSidebar = styled.div`
-  padding-left: 85px;
+  padding-left: 80px;
 
   @media screen and (max-width: 768px) {
     padding-left: 0px;
