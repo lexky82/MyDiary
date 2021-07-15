@@ -46,8 +46,7 @@ const Diary = ({ history }: RouteComponentProps) => {
   const [emotion, setEmotion] = useState("");
   const [contents, setContents] = useState("");
   const [mapLocation, setMapLocation] = useState({});
-  const [images, setImages] = useState<Array<Blob>>([]);
-  const [priviewImage, setPriviewImage] = useState<
+  const [images, setImage] = useState<
     Array<string | ArrayBuffer | undefined | null>
   >([]);
 
@@ -79,7 +78,6 @@ const Diary = ({ history }: RouteComponentProps) => {
 
   const imgUploaderChangeHandler = (image: Array<Blob>) => {
     imageReader(image);
-    setImages([...image]);
   };
 
   const imageReader = (image: Array<Blob>) => {
@@ -93,18 +91,9 @@ const Diary = ({ history }: RouteComponentProps) => {
 
       reader.onload = () => {
         imageURLs[i] = reader.result;
-        setPriviewImage([...imageURLs]);
+        setImage([...imageURLs]);
       };
     }
-  };
-
-  const imageUploadHandler = () => {
-    const formData = new FormData();
-    for (let i = 0; i < images.length; i++) {
-      formData.append("images", images[i]);
-    }
-
-    return formData;
   };
 
   const onsubmitHandler = () => {
@@ -117,16 +106,9 @@ const Diary = ({ history }: RouteComponentProps) => {
       return;
     }
 
-    const imageFile = imageUploadHandler();
-    axios.post('/api/diary/upload', imageFile)
-
     const contentsReplaceNewline = () => {
       return contents.replaceAll("<br>", "\r\n");
     };
-
-    const config = { 
-      headers: { 'content-type': 'multipart/fomr-data' }
-    }
 
     const body = {
       writer: data._id,
@@ -136,7 +118,7 @@ const Diary = ({ history }: RouteComponentProps) => {
       emotion: emotion,
       location: mapLocation,
       contents: contentsReplaceNewline(),
-      image: priviewImage,
+      image: images,
     };
 
     axios
@@ -144,7 +126,7 @@ const Diary = ({ history }: RouteComponentProps) => {
       .then((response) => {
         if (response.data.success) {
           openNotification("일기 작성완료!", "일기를 저장하였습니다.", true);
-         // history.push("/");
+          history.push("/");
         }
       })
       .catch((err) => {
@@ -218,22 +200,23 @@ const Diary = ({ history }: RouteComponentProps) => {
       />
 
       <Googlemap
-        containerStyle={{ height: '400px' }}
+        containerStyle={{ height: "400px" }}
         mapClickHandler={googleMapLngChangeHandler}
+        mapviewMarkerClickHandler={() => {}}
         mapLocation={mapLocation}
       />
 
       <FlexBox>
         <ImageUploader imgUploaderChangeHandler={imgUploaderChangeHandler} />
         <ImageBox>
-          {priviewImage &&
-            priviewImage.map((image, index) => (
+          {images &&
+            images.map((image, index) => (
               <img
                 width={400}
                 height={200}
                 alt="UploadImage"
                 key={index}
-                src={priviewImage[index]?.toString()}
+                src={images[index]?.toString()}
               />
             ))}
         </ImageBox>

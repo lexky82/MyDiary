@@ -13,8 +13,8 @@ const connect = mongoose.connect(config.mongoURI,
   .then(() => console.log('MongoDB Connected...'))
   .catch(err => console.log(err));
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+app.use(express.urlencoded({ extended: false, limit : '50mb' }));
+app.use(express.json({ limit : '50mb' }));
 app.use(cookieParser());
 
 app.use('/api/users', require('./routes/users'));
