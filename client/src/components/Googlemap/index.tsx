@@ -10,18 +10,10 @@ type props = {
   mapClickHandler: Function;
   mapLocation: any | Array<Object>;
   containerStyle: object;
+  mapviewMarkerClickHandler : Function
 };
 
-const Googlemap = ({ mapClickHandler, mapLocation, containerStyle }: props) => {
-
-  const mapviewMarkerClickHandler = (e: google.maps.MapMouseEvent) => {
-    const latLng = {
-      lat : e.latLng?.lat(),
-      lnt : e.latLng?.lng()
-    }
-
-    console.log(latLng)
-  }
+const Googlemap = ({ mapClickHandler, mapLocation, containerStyle, mapviewMarkerClickHandler }: props) => {
 
   return (
     <LoadScript
@@ -38,7 +30,7 @@ const Googlemap = ({ mapClickHandler, mapLocation, containerStyle }: props) => {
           <Marker position={mapLocation} />
         ) : (
           mapLocation.map((location: google.maps.LatLng, index: number) => (
-            <Marker position={location} key={index} onClick={mapviewMarkerClickHandler} />
+            <Marker position={location} key={index} onClick={(e) => mapviewMarkerClickHandler(e)} />
           ))
         )}
       </GoogleMap>
