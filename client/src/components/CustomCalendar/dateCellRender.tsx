@@ -17,7 +17,8 @@ import {
 } from "../../utils/styles/emotion_styledIcon";
 
 const DateCellRender = (value: moment.Moment) => {
-  const { data } = useSWR("/api/diary/", fetcher);
+  const { data: loginData } = useSWR("/api/users/auth", fetcher);
+  const { data } = useSWR(`/api/diary/${loginData._id}`, fetcher);
 
   const getDayInfo = () => {
     const diaryData = data && data.diaryData;
