@@ -9,20 +9,6 @@ const path = require('path')
 //             Diary
 //=================================
 
-const storage = multer.diskStorage({
-    destination: (req, res, callback) => {
-        callback(null, "../server/uploads/");
-    },
-    filename: (req, file, callback) => {
-        callback(null, new Date().valueOf() + path.extname(file.originalname))
-    }
-});
-
-const upload = multer({
-    storage: storage
-});
-
-router.post("/", upload.array('images'))
 router.post("/", (req, res) => {
 
     const diary = new Diary(req.body)
@@ -36,8 +22,10 @@ router.post("/", (req, res) => {
     });
 });
 
-router.get("/", (req, res) => {
-    Diary.find()
+router.get("/:id", (req, res) => {
+    const id = req.params.id
+
+    Diary.find({ writer : id })
         .exec((err, DiaryData) => {
             if (err) return res.status(400).json({ success: false, err })
             return res.status(200).json({ diaryData: DiaryData })
