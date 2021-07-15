@@ -1,5 +1,5 @@
 export type diaryType = {
-  id: string;
+  _id: string;
   writer: string;
   title: string;
   emotion: string;
@@ -8,6 +8,7 @@ export type diaryType = {
   createdAt: string;
   updatedAt: string;
   location: { lat: number; lng: number };
+  image : Array<string>;
 };
 
 export type imageType = {
