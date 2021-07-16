@@ -1,6 +1,10 @@
 import { ResponsivePie } from "@nivo/pie";
 
-const MyResponsivePie = ({ data }: any) => (
+type props = {
+  data : Array<Object>
+}
+
+const MyResponsivePie = ({ data }: props) => (
   <ResponsivePie
     data={data}
     margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
