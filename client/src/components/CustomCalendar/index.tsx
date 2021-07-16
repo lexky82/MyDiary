@@ -10,13 +10,14 @@ import moment from "moment";
 import useSWR from "swr";
 import fetcher from "../../utils/fetcher";
 import { diaryType } from "../../type";
+import DiaryList from "../DiaryList";
 
 const CustomCalendar = () => {
   const { data: loginData } = useSWR("/api/users/auth", fetcher);
   const { data } = useSWR(`/api/diary/${loginData._id}`, fetcher);
 
   const [DateCellModal, setDateCellModal] = useState(false);
-  const [selectDiary, setSelectDiary] = useState<diaryType>();
+  const [selectDiary, setSelectDiary] = useState<Array<diaryType>>([]);
 
   const handleOk = () => {
     setDateCellModal(true);
@@ -26,7 +27,7 @@ const CustomCalendar = () => {
     setDateCellModal(false);
   };
 
-  const DiaryModal = () => (
+  /* const DiaryModal = () => (
     <Modal
       visible={DateCellModal}
       title={selectDiary?.title}
@@ -43,19 +44,19 @@ const CustomCalendar = () => {
     >
       {selectDiary?.contents}
     </Modal>
-  );
+  ); */
 
   const onSelectDateCell = (value: moment.Moment) => {
     const diaryData: Array<diaryType> = data && data.diaryData;
 
-    const filterData = diaryData.filter((data: any) => {
+    const filterData = diaryData && diaryData.filter((data: any) => {
       return (
         moment(data.createdAt).format("YYYY-MM-DD") === value.format("YYYY-MM-DD")
       );
     });
 
-    filterData[0] && setSelectDiary(filterData[0]);
-    filterData[0] && setDateCellModal(true);
+    setSelectDiary(filterData);
+    //filterData[0] && setDateCellModal(true);
   };
 
   return (
@@ -66,7 +67,8 @@ const CustomCalendar = () => {
         onSelect={onSelectDateCell}
       />
 
-      <DiaryModal />
+      { /* <DiaryModal /> */ }
+      <DiaryList selectedLocationDiary={selectDiary} />
     </div>
   );
 };
