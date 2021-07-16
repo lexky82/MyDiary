@@ -21,7 +21,7 @@ type init = string | undefined | null;
 type props = RouteChildrenProps;
 
 const LogIn = ({ history }: props) => {
-  const { data, error, revalidate, mutate } = useSWR(
+  const { data, mutate } = useSWR(
     "/api/users/auth",
     fetcher
   );

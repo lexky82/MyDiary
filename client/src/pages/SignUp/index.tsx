@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { Link, Redirect, RouteChildrenProps } from 'react-router-dom';
+import { Link, RouteChildrenProps } from 'react-router-dom';
 import axios from 'axios'
 import useSWR from "swr";
 import fetcher from "../../utils/fetcher";

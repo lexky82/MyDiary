@@ -36,7 +36,6 @@ import {
   Sun,
 } from "../../utils/styles/weather_styledIcon";
 import openNotification from "../../components/Notification";
-import { imageType } from "../../type";
 
 const Diary = ({ history }: RouteComponentProps) => {
   const { data } = useSWR("/api/users/auth", fetcher);

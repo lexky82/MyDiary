@@ -6,7 +6,7 @@ import useSWR from "swr";
 import fetcher from "../../utils/fetcher";
 
 const Sidebar = () => {
-  const { data, error, revalidate, mutate } = useSWR(
+  const { data } = useSWR(
     "/api/users/auth",
     fetcher
   );
