@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { Carousel, Image } from "antd";
 
 export const Thumbnail = styled.img`
   width : 150px;

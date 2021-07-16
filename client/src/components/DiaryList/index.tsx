@@ -1,10 +1,9 @@
-import { List, Avatar, Space, Skeleton, Spin } from "antd";
+import { List } from "antd";
 import moment from "moment";
-import React, { useState } from "react";
+import 'moment/locale/ko'
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import useSWR from "swr";
 import { diaryType } from "../../type";
-import fetcher from "../../utils/fetcher";
 import { Thumbnail } from "./styles";
 
 type listType = {
@@ -15,26 +14,40 @@ type listType = {
   image: string;
 };
 
-const DiaryList = () => {
-  const { data: loginData } = useSWR("/api/users/auth", fetcher);
-  const { data } = useSWR(`/api/diary/${loginData._id}`, fetcher);
+type props ={
+  selectedLocationDiary: Array<diaryType>
+}
 
-  const diaryListPush = () => {
-    const diaryData: Array<diaryType> = data && data.diaryData;
+const DiaryList = ({selectedLocationDiary}: props) => {
+  const [renderDiary, setRenderDiary] = useState<Array<listType>>([]);
+
+  useEffect(() => {
+    setRenderDiary(diaryToList(selectedLocationDiary))
+
+  }, [selectedLocationDiary])
+
+  const diaryToList = (RenderListDiary: Array<diaryType>) => {
     const listData: Array<listType> = [];
 
-    diaryData &&
-      diaryData.map((diary) => {
+    RenderListDiary && RenderListDiary.map((diary) => {
         listData.push({
           href: `/viewdiary/${diary._id}`,
           title: diary.title,
           description: moment(diary.createdAt).format("YYYY-MM-DD"),
-          content: diary.contents,
+          content: textLengthOverCut(diary.contents, 60, "..."),
           image: diary.image[0],
         });
       });
 
-    return listData;
+    return [...listData];
+  };
+
+  const textLengthOverCut = (text: string, len: number, lastTxt: string) => {
+    if (text.length > len) {
+      text = text.substr(0, len) + lastTxt;
+    }
+
+    return text;
   };
 
   return (
@@ -49,7 +62,7 @@ const DiaryList = () => {
           pageSize: 5,
           position: "bottom",
         }}
-        dataSource={diaryListPush()}
+        dataSource={renderDiary}
         renderItem={(item) => (
           <List.Item
             actions={[
