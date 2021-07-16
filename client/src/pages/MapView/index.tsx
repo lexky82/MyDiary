@@ -32,7 +32,6 @@ const MapView = () => {
       lng : e.latLng?.lng()
     };
 
-
     const result = diaryData.filter((diary) => {
       return JSON.stringify(latLng) === JSON.stringify(diary.location)
     })
@@ -49,7 +48,7 @@ const MapView = () => {
         containerStyle={containerStyle}
       />
 
-      <DiaryList />
+      <DiaryList selectedLocationDiary={listData} />
     </div>
   );
 };
