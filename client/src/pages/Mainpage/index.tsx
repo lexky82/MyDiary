@@ -1,10 +1,18 @@
 import React from "react";
-import DiaryList from "../../components/DiaryList";
+import DoughnutChart from "../../components/DoughnutChart";
+import {
+  emotionData,
+  weatherData,
+} from "../../components/DoughnutChart/chartData";
+import { RenderChart } from "./styles";
 
 const Mainpage = () => {
   return (
     <div>
-      <DiaryList />
+      <RenderChart>
+        <DoughnutChart data={weatherData} />
+        <DoughnutChart data={emotionData} />
+      </RenderChart>
     </div>
   );
 };
