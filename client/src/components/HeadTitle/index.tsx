@@ -1,8 +1,7 @@
-import React from "react";
-import { Descriptions, PageHeader } from "antd";
+import React, { MouseEventHandler } from "react";
+import { Button, Descriptions, PageHeader, Popconfirm } from "antd";
 import moment from "moment";
-import 'moment/locale/ko'
-import { Link } from "react-router-dom";
+import "moment/locale/ko";
 import { diaryType } from "../../type";
 import {
   Happy,
@@ -20,9 +19,11 @@ import {
 
 type props = {
   diaryInfo: diaryType;
+  updateDiary: MouseEventHandler<Element>;
+  removeDiary: any;
 };
 
-const HeadTitle = ({ diaryInfo }: props) => {
+const HeadTitle = ({ diaryInfo, updateDiary, removeDiary }: props) => {
   const WeatherRander = ({ weather }: { weather: string }) => {
     switch (weather) {
       case "sun":
@@ -55,22 +56,43 @@ const HeadTitle = ({ diaryInfo }: props) => {
     }
   };
 
+
   return (
-    <div  style={{ padding:'0px 5px'}}>
+    <div style={{ padding: "0px 5px" }}>
       <PageHeader
         ghost={false}
         onBack={() => window.history.back()}
         title={diaryInfo.title}
-        extra={[<Link to="2">수정</Link>, <Link to="1">삭제</Link>]}
+        extra={[
+          <Button onClick={updateDiary}>수정</Button>,
+          <Popconfirm
+          title="정말 삭제하시겠습니까?"
+          onConfirm={removeDiary}
+          okText="예"
+          cancelText="아니오"
+        >
+          <Button type="primary">
+            삭제
+          </Button>
+        </Popconfirm>,
+        ]}
       />
-      <Descriptions style={{ marginBottom :'1.5rem'}} bordered >
+      <Descriptions style={{ marginBottom: "1.5rem" }} bordered>
         <Descriptions.Item label="제목">{diaryInfo.title}</Descriptions.Item>
-        <Descriptions.Item label="그날의 날씨">{<WeatherRander weather={diaryInfo.weather} />}</Descriptions.Item>
-        <Descriptions.Item label="그날의 감정">{<EmotioinRender emotion={diaryInfo.emotion} />}</Descriptions.Item>
-        <Descriptions.Item label="작성일">{moment(diaryInfo.createdAt).format('LL dddd')}</Descriptions.Item>
-        <Descriptions.Item label="최종 수정일">{moment(diaryInfo.updatedAt).format('LL dddd')}</Descriptions.Item>
+        <Descriptions.Item label="그날의 날씨">
+          {<WeatherRander weather={diaryInfo.weather} />}
+        </Descriptions.Item>
+        <Descriptions.Item label="그날의 감정">
+          {<EmotioinRender emotion={diaryInfo.emotion} />}
+        </Descriptions.Item>
+        <Descriptions.Item label="작성일">
+          {moment(diaryInfo.createdAt).format("LL dddd")}
+        </Descriptions.Item>
+        <Descriptions.Item label="최종 수정일">
+          {moment(diaryInfo.updatedAt).format("LL dddd")}
+        </Descriptions.Item>
         <Descriptions.Item label="장소">
-          {diaryInfo.location.lat + ', ' + diaryInfo.location.lng}
+          {diaryInfo.location.lat + ", " + diaryInfo.location.lng}
         </Descriptions.Item>
       </Descriptions>
     </div>

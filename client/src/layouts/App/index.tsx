@@ -11,6 +11,7 @@ const MapView = loadable(() => import("../../pages/MapView"));
 const Diary = loadable(() => import("../../pages/Diary"));
 const ViewDiary = loadable(() => import('../../pages/ViewDiary'))
 const Mainpage = loadable(() => import("../../pages/Mainpage"));
+const UpdateDiary = loadable(() => import('../../pages/UpdateDiary'))
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
           <Route exact path="/diary" component={Diary} />
           <Route exact path="/mapview" component={MapView}  />
           <Route exact path="/viewdiary/:diaryid" component={ViewDiary} />
+          <Route exact path="/updatediary/:diaryid" component={UpdateDiary} />
         </CoverSidebar>
       </div>
     </Switch>
