@@ -1,5 +1,5 @@
 import { notification } from "antd";
-import { UserOutlined } from "@ant-design/icons";
+import { CloseOutlined, CheckOutlined } from "@ant-design/icons";
 
 const openNotification = (title: string ,description: string, code: boolean) => {
     if (code === true) {
@@ -7,7 +7,7 @@ const openNotification = (title: string ,description: string, code: boolean) => 
         message: title,
         description: description,
 
-        icon: <UserOutlined style={{ color: "black" }} />,
+        icon: <CheckOutlined style={{ color: "green" }} />,
         placement: "topLeft",
       });
     }
@@ -16,7 +16,7 @@ const openNotification = (title: string ,description: string, code: boolean) => 
         message: title,
         description: description,
 
-        icon: <UserOutlined style={{ color: "red" }} />,
+        icon: <CloseOutlined style={{ color: "red" }} />,
         placement: "topLeft",
       });
     }
