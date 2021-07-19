@@ -9,7 +9,6 @@ const ImageUploaderComponent = ({ imgUploaderChangeHandler }: props) => {
 
   return (
     <Uploader
-      style={{ width : "30.5%" }}
       buttonText="이미지 선택"
       label="이미지 최대 크기 : 5MB, 형식 : JPG | PNG | GIF"
       withIcon={true}
