@@ -6,8 +6,7 @@ import { diaryType } from "../../type";
 import fetcher from "../../utils/fetcher";
 
 const MapView = () => {
-  const { data: loginData } = useSWR("/api/users/auth", fetcher);
-  const { data } = useSWR(`/api/diary/${loginData._id}`, fetcher);
+  const { data } = useSWR(`/api/diary/`, fetcher);
   const diaryData: Array<diaryType> = data && data.diaryData;
   const [listData, setlistData] = useState<Array<diaryType>>([]);
 

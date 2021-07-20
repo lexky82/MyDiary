@@ -38,14 +38,13 @@ import {
 import openNotification from "../../components/Notification";
 import { diaryType } from "../../type";
 
-interface MatchParams{
+interface MatchParams {
   diaryid: string;
-};
+}
 
-const UpdateDiary = ({ match, history  }: RouteComponentProps<MatchParams>) => {
+const UpdateDiary = ({ match, history }: RouteComponentProps<MatchParams>) => {
   const diaryid = match.params.diaryid;
-  const { data: loginData } = useSWR("/api/users/auth", fetcher);
-  const { data, revalidate } = useSWR(`/api/diary/${loginData._id}`, fetcher);
+  const { data, revalidate } = useSWR(`/api/diary/`, fetcher);
 
   const [date, setDate] = useState(moment());
   const [title, setTitle] = useState("");
@@ -58,20 +57,19 @@ const UpdateDiary = ({ match, history  }: RouteComponentProps<MatchParams>) => {
   >([]);
 
   useEffect(() => {
-    if(!data && !diaryid){
-      return
+    if (!data && !diaryid) {
+      return;
     }
 
     const diary = diaryFilter();
     setDate(moment(diary.createdAt));
-    setTitle(diary.title)
-    setweather(diary.weather)
-    setEmotion(diary.emotion)
-    setContents(diary.contents)
-    setMapLocation(diary.location)
-    setImage(diary.image)
-
-  }, [data, diaryid])
+    setTitle(diary.title);
+    setweather(diary.weather);
+    setEmotion(diary.emotion);
+    setContents(diary.contents);
+    setMapLocation(diary.location);
+    setImage(diary.image);
+  }, [data, diaryid]);
 
   const diaryFilter = () => {
     const diaryData: Array<diaryType> = data && data.diaryData;
@@ -144,7 +142,7 @@ const UpdateDiary = ({ match, history  }: RouteComponentProps<MatchParams>) => {
     };
 
     const body = {
-      _id : diaryid,
+      _id: diaryid,
       date: date,
       title: title,
       weather: weather,

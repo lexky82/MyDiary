@@ -13,8 +13,7 @@ import { diaryType } from "../../type";
 import DiaryList from "../DiaryList";
 
 const CustomCalendar = () => {
-  const { data: loginData } = useSWR("/api/users/auth", fetcher);
-  const { data } = useSWR(`/api/diary/${loginData._id}`, fetcher);
+  const { data } = useSWR(`/api/diary/`, fetcher);
 
   const [DateCellModal, setDateCellModal] = useState(false);
   const [selectDiary, setSelectDiary] = useState<Array<diaryType>>([]);

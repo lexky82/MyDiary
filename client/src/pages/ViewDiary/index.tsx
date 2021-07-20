@@ -14,9 +14,7 @@ interface MatchParams {
 
 const ViewDiary = ({ match, history }: RouteComponentProps<MatchParams>) => {
   const diaryId = match.params.diaryid;
-
-  const { data: loginData } = useSWR("/api/users/auth", fetcher);
-  const { data, revalidate } = useSWR(`/api/diary/${loginData._id}`, fetcher);
+  const { data, revalidate } = useSWR(`/api/diary/`, fetcher);
 
   const diaryFilter = () => {
     const diaryData: Array<diaryType> = data && data.diaryData;
