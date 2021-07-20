@@ -1,4 +1,4 @@
-import React from "react";
+import React, {KeyboardEvent} from "react";
 import {
   alpha,
   makeStyles,
@@ -8,7 +8,6 @@ import {
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
 import InputBase from "@material-ui/core/InputBase";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
@@ -17,8 +16,7 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import axios from "axios";
 import openNotification from "../../components/Notification";
-import { Link, RouteChildrenProps, withRouter } from "react-router-dom";
-import { FaRegEdit } from "react-icons/fa";
+import { RouteChildrenProps, withRouter } from "react-router-dom";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -94,9 +92,10 @@ function PrimarySearchAppBar({ history }: props) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     React.useState<null | HTMLElement>(null);
-
+  const [searchText, setSearchText] = React.useState("");
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  
 
   const logoutHandler = () => {
     axios
@@ -138,6 +137,17 @@ function PrimarySearchAppBar({ history }: props) {
   const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
+
+  const searchHandler = (e: KeyboardEvent<HTMLImageElement>) => {
+    if(e.key === "Enter"){
+
+
+    }
+  }
+
+  const searchChangeHandler = (e: React.FormEvent<HTMLInputElement>) => {
+    console.log(e.currentTarget.value);
+  }
 
   const menuId = "primary-search-account-menu";
   const renderMenu = (
@@ -194,6 +204,8 @@ function PrimarySearchAppBar({ history }: props) {
                 input: classes.inputInput,
               }}
               inputProps={{ "aria-label": "search" }}
+              onChange={(e) => searchChangeHandler}
+              onKeyPress={searchHandler}
             />
           </div>
           <div className={classes.grow} />
