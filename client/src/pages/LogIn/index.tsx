@@ -1,9 +1,5 @@
 import React, { useState, useCallback, useEffect } from "react";
-import {
-  Link,
-  RouteChildrenProps,
-  withRouter,
-} from "react-router-dom";
+import { Link, RouteChildrenProps, withRouter } from "react-router-dom";
 
 /* Lib */
 import axios from "axios";
@@ -21,14 +17,11 @@ type init = string | undefined | null;
 type props = RouteChildrenProps;
 
 const LogIn = ({ history }: props) => {
-  const { data, mutate } = useSWR(
-    "/api/users/auth",
-    fetcher
-  );
+  const { data, mutate, revalidate } = useSWR("/api/users/auth", fetcher);
 
   useEffect(() => {
     if (data && data.isAuth) {
-      openNotification("로그인 성공", "로그인 성공하였습니다", true);
+      revalidate();
       history.push("/");
     }
   }, [data]);
@@ -80,6 +73,7 @@ const LogIn = ({ history }: props) => {
           .post("/api/users/login", dataToSubmit)
           .then((response) => {
             if (response.data.loginSuccess) {
+              openNotification("로그인 성공", "로그인 성공하였습니다", true);
               mutate(response.data, false);
             } else {
               openNotification("로그인 실패", response.data.message, false);
