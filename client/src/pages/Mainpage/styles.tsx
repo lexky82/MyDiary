@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 
 export const RenderChart = styled.div`
   display: flex;
-  height: 20vh;
+  height: 30vh;
 
   border: 1px solid skyblue;
   @media screen and (max-width: 768px) {
