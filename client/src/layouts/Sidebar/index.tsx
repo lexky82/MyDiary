@@ -1,26 +1,34 @@
-import React from "react";
-import { Link, Redirect } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, RouteChildrenProps, withRouter } from "react-router-dom";
 import { Li, Nav, Ul } from "./styles";
-import { HomeFilled, CalendarOutlined, PlusOutlined, EnvironmentOutlined } from "@ant-design/icons";
+import {
+  PieChartOutlined,
+  CalendarOutlined,
+  PlusOutlined,
+  EnvironmentOutlined,
+} from "@ant-design/icons";
 import useSWR from "swr";
 import fetcher from "../../utils/fetcher";
 
-const Sidebar = () => {
-  const { data } = useSWR(
-    "/api/users/auth",
-    fetcher
-  );
+const Sidebar = ({ history }: RouteChildrenProps) => {
+  const { data } = useSWR("/api/users/auth", fetcher);
 
-  if (!data) {
-    return <Redirect to="/login" />;
-  }
+  useEffect(() => {
+    if (!data) {
+      return;
+    }
+
+    if (!data.isAuth) {
+      history.push("/login");
+    }
+  }, [data]);
 
   return (
     <Nav>
       <Ul>
         <Li>
           <Link to="/">
-            <HomeFilled style={{ width: "100%" }} />
+            <PieChartOutlined style={{ width: "100%" }} />
           </Link>
         </Li>
 
@@ -46,4 +54,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default withRouter(Sidebar);

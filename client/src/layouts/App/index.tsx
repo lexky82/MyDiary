@@ -3,6 +3,7 @@ import loadable from "@loadable/component";
 import { Switch, Route } from "react-router-dom";
 import Sidebar from "../Sidebar";
 import { CoverSidebar } from "./styles";
+import Navbar from "../Navbar";
 
 const LogIn = loadable(() => import("../../pages/LogIn"));
 const SignUp = loadable(() => import("../../pages/SignUp"));
@@ -20,6 +21,7 @@ const App = () => {
       <Route exact path="/signup" component={SignUp} />
       <div>
         <Sidebar />
+        <Navbar />
         <CoverSidebar>
           <Route exact path="/" component={Mainpage} />
           <Route exact path="/calendar" component={Calendar} />

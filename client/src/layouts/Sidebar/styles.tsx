@@ -6,7 +6,6 @@ export const Nav = styled.nav`
   height: 100vh;
   z-index: 100;
   background-color: #202020;
-  box-shadow: 4px 7px 10px rgba(0, 0, 0, 0.4);
 
   @media screen and (max-width: 768px) {
     bottom: 0;
@@ -30,6 +29,11 @@ export const Ul = styled.ul`
 
 export const Li = styled.li`
   padding-bottom: 4rem;
+
+  & > a{
+    color : skyblue;
+  }
+
   &:hover a:after {
     opacity: 5;
   }
