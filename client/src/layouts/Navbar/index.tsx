@@ -183,11 +183,6 @@ function PrimarySearchAppBar({ history }: props) {
     <div className={classes.grow}>
       <AppBar position="static" style={{ background: "#63738E", paddingLeft:'64px' }}>
         <Toolbar>
-          <Typography className={classes.title} variant="h6" noWrap>
-            <Link to="/">
-              <FaRegEdit style={{ fontSize: "2.3rem", color: "black" }} />
-            </Link>
-          </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
