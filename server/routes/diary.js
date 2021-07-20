@@ -1,9 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { Diary } = require("../models/Diary");
-const multer = require('multer');
-const path = require('path');
-const mongoose = require('mongoose');
+const { auth } = require('../middleware/auth')
 
 //=================================
 //             Diary
@@ -32,8 +30,8 @@ router.put('/', (req, res) => {
     })
 })
 
-router.get("/:id", (req, res) => {
-    const id = req.params.id
+router.get("/", auth ,(req, res) => {
+    const id = req.user._id
 
     Diary.find({ writer: id })
         .exec((err, DiaryData) => {
