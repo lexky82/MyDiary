@@ -5,16 +5,17 @@ import {
   weatherData,
   emotionData,
 } from "../../components/DoughnutChart/chartData";
-import Transition from "../../components/Transition";
+import CleanData from "../../components/CleanData";
 import { diaryType } from "../../type";
 import fetcher from "../../utils/fetcher";
 import EditIcon from "@material-ui/icons/Edit";
 import TodayIcon from "@material-ui/icons/Today";
 import ImageIcon from "@material-ui/icons/Image";
 import TextFormatIcon from "@material-ui/icons/TextFormat";
-import { Container, RenderChart } from "./styles";
+import { Container, RenderChart, SectionTitle } from "./styles";
 import { useState } from "react";
 import moment from "moment";
+import DiaryList from "../../components/DiaryList";
 
 const Mainpage = () => {
   const { data } = useSWR(`/api/diary/`, fetcher);
@@ -69,33 +70,40 @@ const Mainpage = () => {
 
   return (
     <div style={{ paddingTop: "1rem" }}>
+      <SectionTitle>CleanData</SectionTitle>
+
       <Container>
-        <Transition
+        <CleanData
           Icon={EditIcon}
           count={diaryCount}
           explanation={"총 작성한 일기"}
         />
-        <Transition
+        <CleanData
           Icon={TodayIcon}
           count={todayCount}
           explanation={"오늘 작성한 일기"}
         />
-        <Transition
+        <CleanData
           Icon={ImageIcon}
           count={imageCount}
           explanation={"총 업로드한 이미지"}
         />
-        <Transition
+        <CleanData
           Icon={TextFormatIcon}
           count={charactersCount}
           explanation={"작성한 일기의 글자"}
         />
       </Container>
 
+      <SectionTitle>Chart</SectionTitle>
+
       <RenderChart>
         <DoughnutChart data={weatherData} />
         <DoughnutChart data={emotionData} />
       </RenderChart>
+
+      <SectionTitle>All Diary</SectionTitle>
+      <DiaryList selectedDiary={diaryData} />
     </div>
   );
 };

@@ -4,7 +4,6 @@ export const RenderChart = styled.div`
   display: flex;
   height: 30vh;
 
-  border: 1px solid skyblue;
   @media screen and (max-width: 768px) {
   }
 `;
@@ -15,4 +14,10 @@ export const Container = styled.div`
   @media screen and (max-width: 768px) {
     flex-wrap: wrap;
   }
+`;
+
+export const SectionTitle = styled.div`
+  padding: 0px 20px 20px 20px; 
+  font-size: 22px;
+  font-weight: 700;
 `;
