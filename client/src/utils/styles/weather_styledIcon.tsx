@@ -36,7 +36,7 @@ export const Lightning = styled(BiCloudLightning)<weather>`
 `;
 
 export const Snow = styled(BiCloudSnow)<weather>`
-  color: skyblue;
+  color: #87ceeb;
   border: ${(props) => (props.weather === "snow" ? "1px solid black" : "none")};
   border-radius: ${(props) => (props.weather === "snow" ? "50%" : "none")};
   font-size: ${(props) => props.size};
