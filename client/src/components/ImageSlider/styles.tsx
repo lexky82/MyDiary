@@ -11,7 +11,7 @@ export const Slider = styled(Carousel)`
     width: 7px;
     height: 7px;
     border-radius: 100%;
-    background: red;
+    background: skyblue;
   }
   height : 50vh;
   background-color : black;
