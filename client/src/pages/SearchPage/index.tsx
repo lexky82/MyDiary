@@ -15,7 +15,7 @@ const SearchPage = ({ match }: RouteComponentProps<MatchParams>) => {
   const diaryData: Array<diaryType> = data && data.diaryData;
 
   const filterDiary = () => {
-    const result = diaryData.filter((diary) => {
+     const result = diaryData && diaryData.filter((diary) => {
       return diary.title.match(searchText) || diary.contents.match(searchText);
     });
 
