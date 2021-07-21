@@ -67,7 +67,7 @@ const CustomCalendar = () => {
       />
 
       { /* <DiaryModal /> */ }
-      <DiaryList selectedLocationDiary={selectDiary} />
+      <DiaryList selectedDiary={selectDiary} />
     </div>
   );
 };

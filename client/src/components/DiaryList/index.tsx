@@ -19,16 +19,16 @@ type listType = {
 };
 
 type props ={
-  selectedLocationDiary: Array<diaryType>
+  selectedDiary: Array<diaryType>
 }
 
-const DiaryList = ({selectedLocationDiary}: props) => {
+const DiaryList = ({selectedDiary}: props) => {
   const [renderDiary, setRenderDiary] = useState<Array<listType>>([]);
 
   useEffect(() => {
-    setRenderDiary(diaryToList(selectedLocationDiary))
+    setRenderDiary(diaryToList(selectedDiary))
 
-  }, [selectedLocationDiary])
+  }, [selectedDiary])
 
   const diaryToList = (RenderListDiary: Array<diaryType>) => {
     const listData: Array<listType> = [];

@@ -47,7 +47,7 @@ const MapView = () => {
         containerStyle={containerStyle}
       />
 
-      <DiaryList selectedLocationDiary={listData} />
+      <DiaryList selectedDiary={listData} />
     </div>
   );
 };
