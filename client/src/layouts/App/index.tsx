@@ -10,9 +10,10 @@ const SignUp = loadable(() => import("../../pages/SignUp"));
 const Calendar = loadable(() => import("../../pages/Calendar"));
 const MapView = loadable(() => import("../../pages/MapView"));
 const Diary = loadable(() => import("../../pages/Diary"));
-const ViewDiary = loadable(() => import('../../pages/ViewDiary'))
+const ViewDiary = loadable(() => import("../../pages/ViewDiary"));
 const Mainpage = loadable(() => import("../../pages/Mainpage"));
-const UpdateDiary = loadable(() => import('../../pages/UpdateDiary'))
+const UpdateDiary = loadable(() => import("../../pages/UpdateDiary"));
+const SearchPage = loadable(() => import("../../pages/SearchPage"));
 
 const App = () => {
   return (
@@ -26,9 +27,10 @@ const App = () => {
           <Route exact path="/" component={Mainpage} />
           <Route exact path="/calendar" component={Calendar} />
           <Route exact path="/diary" component={Diary} />
-          <Route exact path="/mapview" component={MapView}  />
+          <Route exact path="/mapview" component={MapView} />
           <Route exact path="/viewdiary/:diaryid" component={ViewDiary} />
           <Route exact path="/updatediary/:diaryid" component={UpdateDiary} />
+          <Route exact path="/search/:searchtext" component={SearchPage} />
         </CoverSidebar>
       </div>
     </Switch>

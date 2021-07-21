@@ -1,4 +1,4 @@
-import React, {KeyboardEvent} from "react";
+import React, { KeyboardEvent } from "react";
 import {
   alpha,
   makeStyles,
@@ -95,7 +95,6 @@ function PrimarySearchAppBar({ history }: props) {
   const [searchText, setSearchText] = React.useState("");
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-  
 
   const logoutHandler = () => {
     axios
@@ -138,16 +137,15 @@ function PrimarySearchAppBar({ history }: props) {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
-  const searchHandler = (e: KeyboardEvent<HTMLImageElement>) => {
-    if(e.key === "Enter"){
-
-
+  const searchKeyHandler = (e: KeyboardEvent<HTMLImageElement>) => {
+    if (e.key === "Enter") {
+      history.push(`/search/${searchText}`);
     }
-  }
+  };
 
-  const searchChangeHandler = (e: React.FormEvent<HTMLInputElement>) => {
-    console.log(e.currentTarget.value);
-  }
+  const searchChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchText(e.currentTarget.value);
+  };
 
   const menuId = "primary-search-account-menu";
   const renderMenu = (
@@ -191,7 +189,10 @@ function PrimarySearchAppBar({ history }: props) {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static" style={{ background: "#63738E", paddingLeft:'64px' }}>
+      <AppBar
+        position="static"
+        style={{ background: "#63738E", paddingLeft: "64px" }}
+      >
         <Toolbar>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
@@ -204,8 +205,9 @@ function PrimarySearchAppBar({ history }: props) {
                 input: classes.inputInput,
               }}
               inputProps={{ "aria-label": "search" }}
-              onChange={(e) => searchChangeHandler}
-              onKeyPress={searchHandler}
+              value={searchText}
+              onChange={searchChangeHandler}
+              onKeyPress={searchKeyHandler}
             />
           </div>
           <div className={classes.grow} />
