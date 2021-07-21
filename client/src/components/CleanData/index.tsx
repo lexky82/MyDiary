@@ -9,7 +9,7 @@ type props = {
   Icon: OverridableComponent<SvgIconTypeMap>;
 };
 
-const Transition = ({ explanation, count, Icon }: props) => {
+const CleanData = ({ explanation, count, Icon }: props) => {
   return (
     <Container style={{ paddingBottom: '1.0rem'}} maxWidth="sm">
       <Graphic>
@@ -27,4 +27,4 @@ const Transition = ({ explanation, count, Icon }: props) => {
   );
 };
 
-export default Transition;
+export default CleanData;
