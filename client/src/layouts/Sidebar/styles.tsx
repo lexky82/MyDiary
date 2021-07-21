@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 export const Nav = styled.nav`
-  width: 80px;
+  width: 5rem;
   position: fixed;
   height: 100vh;
   z-index: 100;

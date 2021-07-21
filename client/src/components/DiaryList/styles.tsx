@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
 
 export const Thumbnail = styled.img`
-  width : 150px;
-  height : 150px;
+  width : 9.375rem;
+  height : 9.375rem;
   
   @media screen and (max-width: 768px) {
-    height : 110px;
-    width : 110px;
+    height : 6.875rem;
+    width : 6.875rem;
   }
 `;

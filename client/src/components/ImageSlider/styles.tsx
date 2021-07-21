@@ -3,13 +3,13 @@ import { Carousel, Image } from "antd";
 
 export const Slider = styled(Carousel)`
   > .slick-dots li button {
-    width: 6px;
-    height: 6px;
+    width: 0.375rem;
+    height: 0.375rem;
     border-radius: 100%;
   }
   > .slick-dots li.slick-active button {
-    width: 7px;
-    height: 7px;
+    width: 0.438rem;
+    height: 0.438rem;
     border-radius: 100%;
     background: skyblue;
   }

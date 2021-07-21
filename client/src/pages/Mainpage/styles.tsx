@@ -2,9 +2,12 @@ import styled from "@emotion/styled";
 
 export const RenderChart = styled.div`
   display: flex;
-  height: 30vh;
+  width:20rem;
+  justify-content: space-between;
 
   @media screen and (max-width: 768px) {
+    width: 100%;
+    flex-wrap: wrap;
   }
 `;
 
@@ -17,7 +20,7 @@ export const Container = styled.div`
 `;
 
 export const SectionTitle = styled.div`
-  padding: 0px 20px 20px 20px; 
-  font-size: 22px;
+  padding: 0px 1.25rem 1.25rem 1.25rem; 
+  font-size: 1.375rem;
   font-weight: 700;
 `;
