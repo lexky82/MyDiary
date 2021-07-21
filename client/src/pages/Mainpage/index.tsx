@@ -1,10 +1,6 @@
 import React, { useEffect } from "react";
 import useSWR from "swr";
 import DoughnutChart from "../../components/DoughnutChart";
-import {
-  weatherData,
-  emotionData,
-} from "../../components/DoughnutChart/chartData";
 import CleanData from "../../components/CleanData";
 import { diaryType } from "../../type";
 import fetcher from "../../utils/fetcher";
@@ -97,10 +93,7 @@ const Mainpage = () => {
 
       <SectionTitle>Chart</SectionTitle>
 
-      <RenderChart>
-        <DoughnutChart data={weatherData} />
-        <DoughnutChart data={emotionData} />
-      </RenderChart>
+      <DoughnutChart />
 
       <SectionTitle>All Diary</SectionTitle>
       <DiaryList selectedDiary={diaryData} />
