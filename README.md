@@ -1,6 +1,7 @@
 # MyDiary
 
 ![logo](ReadMeImage/diaryIcon.png)
+✔[사이트 링크](http://18.217.128.228:5000/login)
 
 **MyDiary 프로젝트의 Repository 입니다.**
 
