@@ -1,5 +1,7 @@
 # MyDiary
 
+![logo](ReadMeImage/diaryIcon.png)
+
 **MyDiary 프로젝트의 Repository 입니다.**
 
 ## 프로젝트 개요
