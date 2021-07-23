@@ -2,7 +2,7 @@ import React from "react";
 import { Slider, SliserImage } from "./styles";
 
 type props = {
-  images: Array<string>;
+  images: Array<{path:string}>;
 };
 
 const ImageSlider = ({ images }: props) => {
@@ -10,7 +10,7 @@ const ImageSlider = ({ images }: props) => {
     <Slider autoplay>
       {images.map((image, index) => (
           <SliserImage
-            src={image}
+            src={image.path}
             key={index}
           />
       ))}

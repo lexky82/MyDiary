@@ -13,9 +13,9 @@ type listType = {
   title: string;
   description: string;
   content: string;
-  image: string;
   weather : string,
   emotion : string,
+  image : string,
 };
 
 type props ={
@@ -39,9 +39,9 @@ const DiaryList = ({selectedDiary}: props) => {
           title: diary.title,
           description: moment(diary.createdAt).format("YYYY-MM-DD"),
           content: textLengthOverCut(diary.contents, 60, "..."),
-          image: diary.image[0],
           weather: diary.weather,
           emotion : diary.emotion,
+          image : `http://localhost:5000/${diary.image[0].path}` // 미리보기
         });
       });
 
