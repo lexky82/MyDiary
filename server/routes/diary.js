@@ -2,13 +2,32 @@ const express = require('express');
 const router = express.Router();
 const { Diary } = require("../models/Diary");
 const { auth } = require('../middleware/auth')
+const multer = require('multer');
+const path = require('path')
 
 //=================================
 //             Diary
 //=================================
 
-router.post("/", (req, res) => {
-    const diary = new Diary(req.body)
+const storage = multer.diskStorage({
+    destination: (req, res, callback) => {
+        callback(null, "../server/uploads/");
+    },
+    filename: (req, file, callback) => {
+        callback(null, new Date().valueOf() + path.extname(file.originalname))
+    }
+});
+
+const upload = multer({
+    storage: storage
+});
+
+router.post("/", upload.array('images') ,(req, res) => {
+    const body = JSON.parse(req.body.body);
+    body.images = req.files;
+
+    const diary = new Diary(body)
+    
     diary.save((err) => {
         if (err) return res.json({ success: false, err });
 
