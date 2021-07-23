@@ -45,7 +45,8 @@ const Diary = ({ history }: RouteComponentProps) => {
   const [emotion, setEmotion] = useState("");
   const [contents, setContents] = useState("");
   const [mapLocation, setMapLocation] = useState({});
-  const [images, setImage] = useState<
+  const [images, setImages] = useState<Array<Blob>>([]);
+  const [priviewImage, setPriviewImage] = useState<
     Array<string | ArrayBuffer | undefined | null>
   >([]);
 
@@ -77,6 +78,7 @@ const Diary = ({ history }: RouteComponentProps) => {
 
   const imgUploaderChangeHandler = (image: Array<Blob>) => {
     imageReader(image);
+    setImages([...image]);
   };
 
   const imageReader = (image: Array<Blob>) => {
@@ -90,9 +92,18 @@ const Diary = ({ history }: RouteComponentProps) => {
 
       reader.onload = () => {
         imageURLs[i] = reader.result;
-        setImage([...imageURLs]);
+        setPriviewImage([...imageURLs]);
       };
     }
+  };
+
+  const imageUploadHandler = () => {
+    const formData = new FormData();
+    for (let i = 0; i < images.length; i++) {
+      formData.append("images", images[i]);
+    }
+
+    return formData;
   };
 
   const onsubmitHandler = () => {
@@ -109,6 +120,8 @@ const Diary = ({ history }: RouteComponentProps) => {
       return contents.replaceAll("<br>", "\r\n");
     };
 
+    const formData = imageUploadHandler()
+
     const body = {
       writer: data._id,
       date: date,
@@ -117,11 +130,12 @@ const Diary = ({ history }: RouteComponentProps) => {
       emotion: emotion,
       location: mapLocation,
       contents: contentsReplaceNewline(),
-      image: images,
     };
+    
+    formData.append('body', JSON.stringify(body));
 
     axios
-      .post("/api/diary/", body)
+      .post("/api/diary/", formData)
       .then((response) => {
         if (response.data.success) {
           openNotification("일기 작성완료!", "일기를 저장하였습니다.", true);
@@ -208,14 +222,14 @@ const Diary = ({ history }: RouteComponentProps) => {
       <FlexBox>
         <ImageUploader imgUploaderChangeHandler={imgUploaderChangeHandler} />
         <ImageBox>
-          {images &&
-            images.map((image, index) => (
+          {priviewImage &&
+            priviewImage.map((image, index) => (
               <img
                 width={400}
                 height={200}
                 alt="UploadImage"
                 key={index}
-                src={images[index]?.toString()}
+                src={priviewImage[index]?.toString()}
               />
             ))}
         </ImageBox>
