@@ -52,8 +52,8 @@ const UpdateDiary = ({ match, history }: RouteComponentProps<MatchParams>) => {
   const [emotion, setEmotion] = useState("");
   const [contents, setContents] = useState("");
   const [mapLocation, setMapLocation] = useState({});
-  const [images, setImage] = useState<
-    Array<string | ArrayBuffer | undefined | null>
+  const [images, setImages] = useState<
+    Array<{ path : string}>
   >([]);
 
   useEffect(() => {
@@ -68,7 +68,7 @@ const UpdateDiary = ({ match, history }: RouteComponentProps<MatchParams>) => {
     setEmotion(diary.emotion);
     setContents(diary.contents);
     setMapLocation(diary.location);
-    setImage(diary.image);
+    setImages(diary.image)
   }, [data, diaryid]);
 
   const diaryFilter = () => {
@@ -122,7 +122,6 @@ const UpdateDiary = ({ match, history }: RouteComponentProps<MatchParams>) => {
 
       reader.onload = () => {
         imageURLs[i] = reader.result;
-        setImage([...imageURLs]);
       };
     }
   };
@@ -250,7 +249,7 @@ const UpdateDiary = ({ match, history }: RouteComponentProps<MatchParams>) => {
                 height={200}
                 alt="UploadImage"
                 key={index}
-                src={images[index]?.toString()}
+                src={`http://localhost:5000/${images[index].path}`}
               />
             ))}
         </ImageBox>
