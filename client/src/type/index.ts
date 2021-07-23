@@ -8,7 +8,7 @@ export type diaryType = {
   createdAt: string;
   updatedAt: string;
   location: { lat: number; lng: number };
-  image : Array<string>;
+  image : Array<{ path: string }>;
 };
 
 export type imageType = {
