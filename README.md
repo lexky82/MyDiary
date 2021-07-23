@@ -2,6 +2,7 @@
 
 ![logo](ReadMeImage/diaryIcon.png)
 
+✔[사이트 링크](http://18.217.128.228:5000/login)
 **MyDiary 프로젝트의 Repository 입니다.**
 
 ## 프로젝트 개요
@@ -47,5 +48,5 @@
 
 - 일기를 상세하게 보는 페이지
 
-## 트러블 슈팅
-[🔎Sidebar 사용으로 인한 렌더링 문제](https://tried.tistory.com/93)
+## 개발 정리문서
+[🔎 프로젝트를 진행하면서 만났던 문제나 구현방법을 서술한 블로그 ](https://tried.tistory.com/category/%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80/MyDiary)

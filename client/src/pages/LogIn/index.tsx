@@ -5,6 +5,7 @@ import { Link, RouteChildrenProps, withRouter } from "react-router-dom";
 import axios from "axios";
 import useSWR from "swr";
 import fetcher from "../../utils/fetcher";
+import { MyId, MyPassword } from "../LogIn/Myaccount"
 
 /* Components */
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
@@ -92,6 +93,11 @@ const LogIn = ({ history }: props) => {
     [email, emailCheck, password, mutate]
   );
 
+  const settingAccount = () => {
+    setEmail(MyId);
+    setPassword(MyPassword)
+  }
+
   return (
     <Container>
       <Header>로그인</Header>
@@ -132,7 +138,7 @@ const LogIn = ({ history }: props) => {
           로그인
         </Button>
 
-        <Button type="primary" style={{ minWidth: "100%", marginTop:'1rem' }} onClick={developerAccount}>
+        <Button type="primary" style={{ minWidth: "100%", marginTop:'1rem' }} onClick={settingAccount}>
           개발자의 계정으로 로그인
         </Button>
       </Form>
@@ -140,6 +146,8 @@ const LogIn = ({ history }: props) => {
         회원이 아니신가요?&nbsp;
         <Link to="/signup">회원가입 하기</Link>
       </div>
+
+      
     </Container>
   );
 };
