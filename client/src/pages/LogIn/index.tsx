@@ -57,6 +57,11 @@ const LogIn = ({ history }: props) => {
     setPassword(e.target.value);
   }, []);
 
+  const developerAccount = () => {
+    setEmail('lexky82@gmail.com');
+    setPassword('574269zx');
+  }
+
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault();
@@ -125,6 +130,10 @@ const LogIn = ({ history }: props) => {
 
         <Button type="primary" style={{ minWidth: "100%" }} onClick={onSubmit}>
           로그인
+        </Button>
+
+        <Button type="primary" style={{ minWidth: "100%", marginTop:'1rem' }} onClick={developerAccount}>
+          개발자의 계정으로 로그인
         </Button>
       </Form>
       <div>
