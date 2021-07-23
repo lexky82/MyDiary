@@ -17,11 +17,17 @@ const ViewDiary = ({ match, history }: RouteComponentProps<MatchParams>) => {
   const { data, revalidate } = useSWR(`/api/diary/`, fetcher);
 
   const diaryFilter = () => {
+    if (!data) {
+      return;
+    }
+
     const diaryData: Array<diaryType> = data && data.diaryData;
 
-    const selectDiary = diaryData.filter((diary) => {
-      return diary._id === diaryId;
-    });
+    const selectDiary =
+      diaryData &&
+      diaryData.filter((diary) => {
+        return diary._id === diaryId;
+      });
 
     return selectDiary[0];
   };
@@ -51,18 +57,35 @@ const ViewDiary = ({ match, history }: RouteComponentProps<MatchParams>) => {
       });
   };
 
+  const processContents = () => {
+    const result = diary && diary.contents.split("\n").map((line) => {
+      return (
+        <span>
+          {line}
+          <br />
+        </span>
+      );
+    });
+
+    return result;
+  };
+
   const diary = diaryFilter();
 
   return (
     <div>
-      <HeadTitle
-        diaryInfo={diary}
-        updateDiary={updateDiary}
-        removeDiary={removeDiary}
-      />
-      {diary.image[0] && <ImageSlider images={diary.image} />}
+      {diary && (
+        <HeadTitle
+          diaryInfo={diary}
+          updateDiary={updateDiary}
+          removeDiary={removeDiary}
+        />
+      )}
+      {diary && diary.image[0] && <ImageSlider images={diary.image} />}
 
-      <div style={{ fontSize: "18px", padding: "10px" }}>{diary.contents}</div>
+      <div style={{ fontSize: "18px", padding: "10px" }}>
+        {processContents()}
+      </div>
     </div>
   );
 };
