@@ -34,6 +34,8 @@ const DiaryList = ({selectedDiary}: props) => {
     const listData: Array<listType> = [];
 
     RenderListDiary && RenderListDiary.map((diary) => {
+        console.log(diary)
+
         listData.push({
           href: `/viewdiary/${diary._id}`,
           title: diary.title,
@@ -41,7 +43,7 @@ const DiaryList = ({selectedDiary}: props) => {
           content: textLengthOverCut(diary.contents, 60, "..."),
           weather: diary.weather,
           emotion : diary.emotion,
-          image : `http://localhost:5000/${diary.image[0].path}` // 미리보기
+          image : diary.image[0] && `http://localhost:5000/${diary.image[0].path}`
         });
       });
 
