@@ -24,7 +24,7 @@ const upload = multer({
 
 router.post("/", upload.array('images') ,(req, res) => {
     const body = JSON.parse(req.body.body);
-    body.images = req.files;
+    body.image = req.files;
 
     const diary = new Diary(body)
     
