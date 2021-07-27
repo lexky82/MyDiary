@@ -14,7 +14,7 @@
 - 개발 언어 : Frontend : TypeScript, Backend : JavaScript
 - 개발 라이브러리
   - Frontend : React, SWR, Emotion, Antd, Axios, Chart.js, Material UI, Google-Maps API
-  - Backend : Express, Mongoose, AWS EC2
+  - Backend : Express, Mongoose, Multer, AWS EC2
   - Database : MongoDB
 - 형상 관리 툴 : Git
 - 간단 소개 : 자신에 하루를 퀄리티 있게 기록하는 일기장 웹앱 서비스
