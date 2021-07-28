@@ -99,7 +99,7 @@ const DiaryList = ({selectedDiary}: props) => {
           onChange: (page) => {
             console.log(page);
           },
-          pageSize: 5,
+          pageSize: 3,
           position: "bottom",
         }}
         dataSource={renderDiary}
