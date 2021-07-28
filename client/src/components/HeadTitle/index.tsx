@@ -92,7 +92,7 @@ const HeadTitle = ({ diaryInfo, updateDiary, removeDiary }: props) => {
           {moment(diaryInfo.updatedAt).format("LL dddd")}
         </Descriptions.Item>
         <Descriptions.Item label="장소">
-          {diaryInfo.location.lat + ", " + diaryInfo.location.lng}
+          { diaryInfo.location && diaryInfo.location.lat + ", " + diaryInfo.location.lng}
         </Descriptions.Item>
       </Descriptions>
     </div>
