@@ -37,10 +37,11 @@ router.post("/", upload.array('images') ,(req, res) => {
     });
 });
 
-router.put('/', (req, res) => {
-    const diary = new Diary()
+router.put('/', upload.array('images'), (req, res) => {
+    const body = JSON.parse(req.body.body);
+    body.image = req.files;
 
-    Diary.findOneAndUpdate({_id : req.body._id}, req.body, (err) => {
+    Diary.findOneAndUpdate({_id : req.body._id}, body, (err) => {
         if (err) return res.status(500).json({ success: false, err });
 
         return res.status(200).json({
