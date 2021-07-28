@@ -34,8 +34,6 @@ const DiaryList = ({selectedDiary}: props) => {
     const listData: Array<listType> = [];
 
     RenderListDiary && RenderListDiary.map((diary) => {
-        console.log(diary)
-
         listData.push({
           href: `/viewdiary/${diary._id}`,
           title: diary.title,
@@ -96,9 +94,6 @@ const DiaryList = ({selectedDiary}: props) => {
         itemLayout="vertical"
         size="large"
         pagination={{
-          onChange: (page) => {
-            console.log(page);
-          },
           pageSize: 3,
           position: "bottom",
         }}
