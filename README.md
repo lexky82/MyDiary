@@ -49,4 +49,4 @@
 - 일기를 상세하게 보는 페이지
 
 ## 개발 정리문서
-[🔎 프로젝트를 진행하면서 만났던 문제나 구현방법을 서술한 블로그 ](https://tried.tistory.com/category/%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80/MyDiary)
+[🔎 프로젝트를 진행하면서 경험했던 문제나 구현방법을 서술한 블로그 ](https://tried.tistory.com/category/%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80/MyDiary)
