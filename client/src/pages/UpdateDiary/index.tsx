@@ -174,7 +174,7 @@ const UpdateDiary = ({ match, history }: RouteComponentProps<MatchParams>) => {
       .then((response) => {
         if (response.data.success) {
           openNotification("일기 작성완료!", "일기를 저장하였습니다.", true);
-          history.push("/");
+          history.goBack();
         }
       })
       .catch((err) => {
