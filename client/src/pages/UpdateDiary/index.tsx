@@ -55,6 +55,10 @@ const UpdateDiary = ({ match, history }: RouteComponentProps<MatchParams>) => {
   const [images, setImages] = useState<
     Array<{ path : string}>
   >([]);
+  const [priviewImage, setPriviewImage] = useState<
+    Array<string | ArrayBuffer | undefined | null>
+  >([]);
+  const [uploadImages, setUploadImages] = useState<Array<Blob>>([]);
 
   useEffect(() => {
     if (!data && !diaryid) {
@@ -74,7 +78,7 @@ const UpdateDiary = ({ match, history }: RouteComponentProps<MatchParams>) => {
   const diaryFilter = () => {
     const diaryData: Array<diaryType> = data && data.diaryData;
 
-    const selectDiary = diaryData.filter((diary) => {
+    const selectDiary = diaryData && diaryData.filter((diary) => {
       return diary._id === diaryid;
     });
 
@@ -109,6 +113,7 @@ const UpdateDiary = ({ match, history }: RouteComponentProps<MatchParams>) => {
 
   const imgUploaderChangeHandler = (image: Array<Blob>) => {
     imageReader(image);
+    setUploadImages([...image]);
   };
 
   const imageReader = (image: Array<Blob>) => {
@@ -122,8 +127,18 @@ const UpdateDiary = ({ match, history }: RouteComponentProps<MatchParams>) => {
 
       reader.onload = () => {
         imageURLs[i] = reader.result;
+        setPriviewImage([...imageURLs]);
       };
     }
+  };
+
+  const imageUploadHandler = () => {
+    const formData = new FormData();
+    for (let i = 0; i < uploadImages.length; i++) {
+      formData.append("images", uploadImages[i]);
+    }
+
+    return formData;
   };
 
   const onsubmitHandler = () => {
@@ -140,6 +155,8 @@ const UpdateDiary = ({ match, history }: RouteComponentProps<MatchParams>) => {
       return contents.replaceAll("<br>", "\r\n");
     };
 
+    const formData = imageUploadHandler()
+
     const body = {
       _id: diaryid,
       date: date,
@@ -148,16 +165,16 @@ const UpdateDiary = ({ match, history }: RouteComponentProps<MatchParams>) => {
       emotion: emotion,
       location: mapLocation,
       contents: contentsReplaceNewline(),
-      image: images,
     };
+    
+    formData.append('body', JSON.stringify(body));
 
     axios
-      .put("/api/diary/", body)
+      .put("/api/diary/", formData)
       .then((response) => {
         if (response.data.success) {
-          revalidate();
           openNotification("일기 작성완료!", "일기를 저장하였습니다.", true);
-          history.goBack();
+          history.push("/");
         }
       })
       .catch((err) => {
@@ -242,6 +259,16 @@ const UpdateDiary = ({ match, history }: RouteComponentProps<MatchParams>) => {
       <FlexBox>
         <ImageUploader imgUploaderChangeHandler={imgUploaderChangeHandler} />
         <ImageBox>
+        {priviewImage &&
+            priviewImage.map((image, index) => (
+              <img
+                width={400}
+                height={200}
+                alt="UploadImage"
+                key={index}
+                src={priviewImage[index]?.toString()}
+              />
+            ))}
           {images &&
             images.map((image, index) => (
               <img
