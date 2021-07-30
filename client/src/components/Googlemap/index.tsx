@@ -5,6 +5,7 @@ import {
   Marker,
   StandaloneSearchBox,
 } from "@react-google-maps/api";
+import { SearchBox } from "./styles";
 
 const center = {
   lat: 37.54,
@@ -25,12 +26,24 @@ const Googlemap = ({
   mapviewMarkerClickHandler,
 }: props) => {
   const [searchBox, setSearchBox] = useState<google.maps.places.SearchBox>();
-  const [boundsLatLng, setBoundsLatLng] = useState<google.maps.LatLng>()
+  const [boundsLatLng, setBoundsLatLng] = useState<
+    google.maps.LatLngBounds | undefined
+  >();
 
   const onLoad = (ref: google.maps.places.SearchBox) => setSearchBox(ref);
-  const onPlacesChanged = () => console.log(searchBox?.getPlaces());
 
-  const onBounds = () => {
+  const onPlaceChangeHandler = () => {
+    const places = searchBox?.getPlaces();
+    places?.forEach((place) => {
+      if (!place.geometry || !place.geometry.location) {
+        return;
+      }
+      else{
+        const boundsLocation = new google.maps.LatLngBounds(place.geometry.location)
+        setBoundsLatLng(boundsLocation)
+      }
+    })
+    
   }
 
   return (
@@ -45,25 +58,14 @@ const Googlemap = ({
         zoom={4}
         onClick={(e) => mapClickHandler(e)}
       >
-        <StandaloneSearchBox onLoad={onLoad} onPlacesChanged={onPlacesChanged} bounds={boundsLatLng}>
-          <input
+        <StandaloneSearchBox
+          onLoad={onLoad}
+          onPlacesChanged={onPlaceChangeHandler}
+          bounds={boundsLatLng}
+        >
+          <SearchBox
             type="text"
-            placeholder="검색"
-            style={{
-              boxSizing: `border-box`,
-              border: `1px solid transparent`,
-              width: `240px`,
-              height: `32px`,
-              padding: `0 12px`,
-              borderRadius: `3px`,
-              boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
-              fontSize: `14px`,
-              outline: `none`,
-              textOverflow: `ellipses`,
-              position: "absolute",
-              left: "50%",
-              marginLeft: "-120px",
-            }}
+            placeholder="위치 검색"
           />
         </StandaloneSearchBox>
 
