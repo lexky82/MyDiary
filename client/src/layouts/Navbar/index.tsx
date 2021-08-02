@@ -139,6 +139,7 @@ function PrimarySearchAppBar({ history }: props) {
 
   const searchKeyHandler = (e: KeyboardEvent<HTMLImageElement>) => {
     if (e.key === "Enter") {
+      setSearchText('');
       history.push(`/search/${searchText}`);
     }
   };
