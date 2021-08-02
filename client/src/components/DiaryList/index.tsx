@@ -1,4 +1,4 @@
-import { Button, List } from "antd";
+import { List } from "antd";
 import moment from "moment";
 import 'moment/locale/ko'
 import React, { useEffect, useState } from "react";
@@ -39,8 +39,8 @@ const DiaryList = ({selectedDiary}: props) => {
           title: diary.title,
           description: moment(diary.createdAt).format("YYYY-MM-DD"),
           content: textLengthOverCut(diary.contents, 60, "..."),
-          weather: diary.weather,
-          emotion : diary.emotion,
+          weather: diary.weather && diary.weather,
+          emotion : diary.emotion && diary.emotion,
           image : diary.image[0] && `http://localhost:5000/${diary.image[0].path}`
         });
       });
