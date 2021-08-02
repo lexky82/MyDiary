@@ -7,11 +7,6 @@ import {
 } from "@react-google-maps/api";
 import { SearchBox } from "./styles";
 
-const center = {
-  lat: 37.54,
-  lng: 127.04,
-};
-
 type props = {
   mapClickHandler: Function;
   mapLocation: any | Array<Object>;
@@ -26,10 +21,8 @@ const Googlemap = ({
   mapviewMarkerClickHandler,
 }: props) => {
   const [searchBox, setSearchBox] = useState<google.maps.places.SearchBox>();
-  const [boundsLatLng, setBoundsLatLng] = useState<
-    google.maps.LatLngBounds | undefined
-  >();
-
+  const [center, setCenter] = useState({ lat: 37.54, lng: 127.04 });
+  const [zoom, setZoom] = useState(4);
   const onLoad = (ref: google.maps.places.SearchBox) => setSearchBox(ref);
 
   const onPlaceChangeHandler = () => {
@@ -37,14 +30,17 @@ const Googlemap = ({
     places?.forEach((place) => {
       if (!place.geometry || !place.geometry.location) {
         return;
+      } else {
+        const placeLoaction = {
+          lat: place.geometry.location.lat(),
+          lng: place.geometry.location.lng(),
+        };
+
+        setCenter({ ...placeLoaction });
+        setZoom(19);
       }
-      else{
-        const boundsLocation = new google.maps.LatLngBounds(place.geometry.location)
-        setBoundsLatLng(boundsLocation)
-      }
-    })
-    
-  }
+    });
+  };
 
   return (
     <LoadScript
@@ -55,18 +51,14 @@ const Googlemap = ({
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
-        zoom={4}
+        zoom={zoom}
         onClick={(e) => mapClickHandler(e)}
       >
         <StandaloneSearchBox
           onLoad={onLoad}
           onPlacesChanged={onPlaceChangeHandler}
-          bounds={boundsLatLng}
         >
-          <SearchBox
-            type="text"
-            placeholder="위치 검색"
-          />
+          <SearchBox type="text" placeholder="위치 검색" />
         </StandaloneSearchBox>
 
         {!Array.isArray(mapLocation) ? (
