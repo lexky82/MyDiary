@@ -10,8 +10,7 @@
 
 # production
 /build
-
-Login/Myaccount.ts
+/src/pages/Login/Myaccount.ts
 
 # misc
 .DS_Store
