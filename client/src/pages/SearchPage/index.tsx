@@ -4,6 +4,7 @@ import useSWR from "swr";
 import DiaryList from "../../components/DiaryList";
 import { diaryType } from "../../type";
 import fetcher from "../../utils/fetcher";
+import { SearchResult } from "./styles";
 
 interface MatchParams {
   searchtext: string;
@@ -25,9 +26,9 @@ const SearchPage = ({ match }: RouteComponentProps<MatchParams>) => {
   const searchDiary = filterDiary();
   return (
     <div>
-      <div style={{ fontSize: "24px", padding: "20px", fontWeight: 600 }}>
+      <SearchResult>
         {`"${searchText}"`}의 검색 결과
-      </div>
+      </SearchResult>
       <DiaryList selectedDiary={searchDiary} />
     </div>
   );
